@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FortisDeviceCenter\FortisDeviceCenter.csproj" />
+    <ProjectReference Include="..\FortisFramework\FortisFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Sequences\SeqConsLogic.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Sequences\SeqLoadLogic.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Sequences\SeqPickLogic.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Sequences\SeqPackLogic.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Sequences\SeqRecepLogic.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

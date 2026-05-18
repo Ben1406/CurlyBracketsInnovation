@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Close_Dark.png" />
+    <None Remove="Images\Devices_Dark.png" />
+    <None Remove="Images\Dropdown_Dark.png" />
+    <None Remove="Images\Exit_Dark.png" />
+    <None Remove="Images\HomeMenu.png" />
+    <None Remove="Images\HomeMenu_Dark.png" />
+    <None Remove="Images\ToolMenu_Dark.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="8.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FortisDeviceCenter\FortisDeviceCenter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Devices_Dark.png" />
+    <Resource Include="Images\Dropdown_Dark.png" />
+    <Resource Include="Images\Exit_Dark.png" />
+    <Resource Include="Images\ToolMenu_Dark.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UserControls\External\Input\InputControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StandardSequences\SeqStdPackLogic.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Internal\SequenceRibbon\SequenceRibbonItemButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Internal\SequenceRibbon\SequenceRibbonGroupButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Internal\SequenceRibbon\SequenceRibbonControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Internal\ToolRibbon\ToolRibbonItemButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Internal\ToolRibbon\ToolRibbonGroupButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Internal\ToolRibbon\ToolRibbonControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Internal\ToolRibbon\ToolClockControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

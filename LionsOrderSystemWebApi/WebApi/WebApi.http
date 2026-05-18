@@ -1,0 +1,9 @@
+@WebApi_HostAddress = https://localhost:44373
+
+GET {{WebApi_HostAddress}}/api/Products/GetAll/A
+Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/api/Products/GetById/1
+Accept: application/json

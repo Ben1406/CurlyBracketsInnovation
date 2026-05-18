@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="FortisFramework.UserControls.Internal.ToolRibbon.ToolClockControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FortisFramework.UserControls.Internal.ToolRibbon"
+             xmlns:fortisframework="clr-namespace:FortisFramework"
+             d:DataContext="{d:DesignInstance Type=local:ToolClockControlViewModel}"
+             mc:Ignorable="d"
+             x:ClassModifier="internal"
+             d:DesignHeight="48" d:DesignWidth="108" FontFamily="/FortisFramework;component/Fonts/Poppins.ttf#Poppins Medium">
+
+    <Border Name="RootControl" Background="Transparent" BorderThickness="0" BorderBrush="White" Margin="1">
+        <Grid Name="RibbonSeqButton">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Name="lblDay" Content="{Binding Path=DayAsString}" FontSize="10" FontWeight="SemiBold" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="0" Grid.Row="0"/>
+            <Label Name="lblTime" Content="{Binding Path=TimeAsString}" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="0" Grid.Row="1"/>
+            <Label Name="lblDate" Content="{Binding Path=DateAsString}" FontSize="10" FontWeight="SemiBold" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="0" Grid.Row="2"/>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="FortisFramework.UserControls.External.Scale.ScaleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FortisFramework.UserControls.External.Scale"
+             xmlns:fortisframework="clr-namespace:FortisFramework"
+             d:DataContext="{d:DesignInstance Type=local:ScaleControlViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="456" FontFamily="/FortisFramework;component/Fonts/Outfit.ttf#Outfit Regular">
+
+    <Border Name="RootControl" Background="Transparent" BorderThickness="1" BorderBrush="White" Margin="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Name="lblWeightUnit" Content="{Binding Path=WeightUnitAsString}" FontSize="12" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
+            <Label Name="lblWeightType" Content="{Binding Path=WeightTypeAsString}" FontSize="12" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="2"/>
+            <Label Name="lblMotion" Content="{Binding Path=MotionAsString}" FontSize="12" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="5"/>
+            <Label Name="lblGrossHeader" Content="Gross weight" FontSize="12" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Label Name="lblTareHeader" Content="Tare weight" FontSize="12" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Label Name="lblNetHeader" Content="Net weight" FontSize="12" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="5"/>
+            <Label Name="lblGrossWeight" Content="{Binding Path=GrossWeight}" ContentStringFormat="{Binding Path=DecimalAsFormatString}" FontFamily="Lucida Console" FontSize="18" FontWeight="UltraBold" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"/>
+            <Label Name="lblTareWeight" Content="{Binding Path=TareWeight}" ContentStringFormat="{Binding Path=DecimalAsFormatString}" FontFamily="Lucida Console" FontSize="18" FontWeight="UltraBold" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4"/>
+            <Label Name="lblNetWeight" Content="{Binding Path=NetWeight}" ContentStringFormat="{Binding Path=DecimalAsFormatString}" FontFamily="Lucida Console" FontSize="32" FontWeight="UltraBold" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
+        </Grid>
+    </Border>
+</UserControl>

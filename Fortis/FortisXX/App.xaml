@@ -1,0 +1,10 @@
+﻿<Application x:Class="FortisXX.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FortisXX"
+             xmlns:frmwrk="clr-namespace:FortisFramework;assembly=FortisFramework"
+             StartupUri="pack://application:,,,/FortisFramework;component/MainWelcomeWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
