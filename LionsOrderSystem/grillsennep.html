@@ -1,0 +1,72 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <title>Lions Club Vinderup</title>
+    <link rel="stylesheet" href="styles\style_grillsennep.css">
+    <script type="text/javascript" src="scripts\app_grillsennep.js" defer></script>
+</head>
+<body onload="fetchProductsAll()">
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Hjem</a></li>
+            <li><a href="have.html">Have</a></li>
+            <li><a href="julesennep.html">Jule Sennep</a></li>
+            <li><a href="grillsennep.html">Grill Sennep</a></li>
+            <li><a href="about.html">Om Lions</a></li>
+            <li>
+                <button class="basket-button" onclick="showBasketTab()">
+                    <img class="basket-logo" src="images\shopping_basket.png" alt="Indkøbskurv">
+                    <span>0</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="title1">
+        <a href="index.html">
+            <img class="lions-logo" src="images\lions_logo.png" alt="Lions Club Vinderup Logo">
+        </a>
+        <p>LIONS CLUB VINDERUP</p>
+    </div>
+    
+    <div class="title2">
+        <p>Her bestiller du gødning og kalk til haven</p>
+    </div>
+    
+    <div class="product-section">
+    </div>
+
+    <div class="title3">
+        <p>Gratis levering i den gamle Vinderup kommune (postnr. 7830)</p>
+        <p>Al overskud går ubeskåret til velgørenhed</p>
+    </div>
+
+        <div>
+        <div class="basket-tab">
+            <h1>Indkøbskurv</h1>
+            <div class="basket-list">
+                <div class="basket-item">
+                    <div class="basket-item-image">
+                        <img src="" alt="">
+                    </div>
+                    <div class="basket-item-name">
+                        NAME
+                    </div>
+                    <div class="basket-total-price">
+                        200 kr.
+                    </div>
+                    <div class="basket-quantity">
+                        <span class="minus"><</span>
+                        <span>1</span>
+                        <span class="plus">></span>
+                    </div>
+                </div>
+            </div>
+            <div class="basket-buttons">
+                <button class="basket-close" onclick="hideBasketTab()">LUK</button>
+                <button class="basket-check-out">CHECK UD</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

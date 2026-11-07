@@ -37,7 +37,6 @@ async function fetchProductsAll() {
                 <div class="product-text">
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
-                    <p>Pris kr. ${data.normalPricePerPiece} pr. styk</p>
                     <p>UDSOLGT !!!</p>
                 </div>
             </a>
