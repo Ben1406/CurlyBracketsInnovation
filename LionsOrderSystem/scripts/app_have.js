@@ -4,13 +4,13 @@ let productElements = [];
 let basketItems = [];
 
 async function fetchProductsAll() {
-    fetch('https://localhost:44373/api/Products/GetAll/A')
+    fetch('https://localhost:44373/api/Products/GetAll/Have')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         if (data.active == true) {
             const elementWithOffer = `
             <a class="product-card">
-                <img class="product-logo" src=${data.imageName} alt="Empty">
+                <img class="product-logo" src=images/${data.imageName} alt="empty">
                 <div class="product-text">
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
@@ -21,7 +21,7 @@ async function fetchProductsAll() {
             `
             const elementWithoutOffer = `
             <a class="product-card">
-                <img class="product-logo" src=${data.imageName} alt="Empty">
+                <img class="product-logo" src=images/${data.imageName} alt="empty">
                 <div class="product-text">
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
@@ -33,7 +33,7 @@ async function fetchProductsAll() {
 
             const elementSoldOut = `
             <a class="product-card">
-                <img class="product-logo" src=${data.imageName} alt="Empty">
+                <img class="product-logo" src=images/${data.imageName} alt="empty">
                 <div class="product-text">
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
