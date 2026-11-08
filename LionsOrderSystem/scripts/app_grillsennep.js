@@ -20,7 +20,7 @@ function fetchProductsAll() {
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
                     <p>Pris kr. ${data.normalPricePerPiece} pr. styk - ${data.offerMinPieces} styk for kr. ${data.offerMinPieces * data.offerPricePerPiece} - derudover ${data.offerPricePerPiece} pr. styk</p>
-                    <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value="0"> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
+                    <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value=""> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
                 </div>
             </a>
             `
@@ -31,7 +31,7 @@ function fetchProductsAll() {
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
                     <p>Pris kr. ${data.normalPricePerPiece} pr. styk</p>
-                    <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value="0"> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
+                    <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value=""> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
                 </div>
             </a>
             `
