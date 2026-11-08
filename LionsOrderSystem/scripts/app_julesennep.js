@@ -88,6 +88,9 @@ function addToBasket(button) {
 
     sessionStorage.setItem("basket", JSON.stringify(basket));
 
+    const productQty = document.getElementById(selectedProductId + "Qty");
+    productQty.value = "";
+
     displayBasketItemCount();
 }
 
