@@ -123,6 +123,7 @@ body {
 
 .mail-line {
     display: flex;
+    justify-content: center;
     gap: 5px;
     text-decoration: none;
 }
@@ -154,85 +155,4 @@ body {
 .basket-logo {
     height: 28px;
     width: 28px;
-}
-
-.basket-tab {
-    display: grid;
-    grid-template-rows: 70px 1fr 70px;
-    position: fixed;
-    width: 400px;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    inset: 0 -400px 0 auto;
-    background-color: var(--line-clr);
-    color: var(--text-clr);
-}
-
-.basket-tab h1 {
-    padding: 20px;
-    margin: 0;
-    font-weight: 300;
-}
-
-.basket-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.basket-buttons button {
-    background-color: yellow;
-    border: 2px;
-    margin: 2px;
-    font-size: 1.0em;
-    font-weight: 300;
-    cursor: pointer;
-}
-
-.basket-close {
-    background-color: var(--text-clr)
-}
-
-.basket-item {
-    display: grid;
-    grid-template-columns: 70px 150px 50x 1fr;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-}
-
-.basket-item img {
-    width: 100%;
-}
-
-.basket-quantity span {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    background-color: var(--text-clr);
-    color: var(--base-clr);
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.basket-quantity span:nth-child(2) {
-    background-color: transparent;
-    color: var(--text-clr);
-}
-
-.basket-item span:nth-child(even) {
-    background-color: var(--line-clr);
-    color: var(--text-clr);
-}
-
-.basket-list {
-    overflow: auto;
-}
-
-.basket-list::-webkit-scrollbar {
-    width: 0;
-}
-
-body.showBasket .basket-tab {
-    inset: 0 0 0 auto;
 }

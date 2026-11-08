@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto&display=swap");
+
+:root {
+    --base-clr: #11121a;
+    --line-clr: #42434a;
+    --hover-clr: #222533;
+    --text-clr: #e6e6ef;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: "Poppins", sans-serif;
+    line-height: 1.5rem;
+}
+
+a {
+    color: var(--text-clr);
+    text-decoration: none;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 60px auto auto 1fr auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--base-clr);
+    color: var(--text-clr);
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--line-clr);
+}
+
+.navbar ul {
+    list-style-type: none;
+    background-color: var(--line-clr);
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar a {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    background-color: var(--hover-clr);
+}
+
+.title1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 3.5em;
+    font-weight: 600;
+}
+
+.title2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 400;
+    line-height: 2em;
+}
+
+.title3 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.0em;
+    font-weight: 400;
+    line-height: 2em;
+}
+
+.lions-logo {
+    height: 120px;
+    width: 120px;
+}
+
+.mail-line {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    text-decoration: none;
+}
+
+.basket-button {
+    padding-left: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-clr);
+    position: absolute;
+}
+
+.basket-button span {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em;
+    color: var(--text-clr);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: -15px;
+}
+
+.basket-logo {
+    height: 28px;
+    width: 28px;
+}

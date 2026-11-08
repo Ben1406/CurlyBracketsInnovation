@@ -165,6 +165,13 @@ body {
     font-weight: 400;
 }
 
+.mail-line {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    text-decoration: none;
+}
+
 .basket-button {
     padding-left: 50px;
     background: none;

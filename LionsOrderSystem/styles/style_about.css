@@ -109,6 +109,7 @@ body {
 
 .mail-line {
     display: flex;
+    justify-content: center;
     gap: 5px;
     text-decoration: none;
 }

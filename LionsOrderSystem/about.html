@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="styles\style_about.css">
     <script type="text/javascript" src="scripts\app_about.js" defer></script>
 </head>
-<body class="">
+<body onload="pageLoaded()">
     <nav class="navbar">
         <ul>
             <li><a href="index.html">Hjem</a></li>
@@ -14,9 +14,9 @@
             <li><a href="grillsennep.html">Grill Sennep</a></li>
             <li><a href="about.html">Om Lions</a></li>
             <li>
-                <button class="basket-button" onclick="showBasketTab()">
-                    <img class="basket-logo" src="images\shopping_basket.png" alt="Indkøbskurv">
-                    <span>0</span>
+                <button class="basket-button" onclick="showBasket()">
+                    <img class="basket-logo" src="images\basket.png" alt="Indkøbskurv">
+                    <span id="basket-item-count">0</span>
                 </button>
             </li>
         </ul>
@@ -50,8 +50,9 @@
     </div>
     <div class="title3">
         <p>Lions Club Vinderup</p>
+        <p>Al overskud går ubeskåret til velgørenhed</p>
         <div class="mail-line">
-            <p>kontakt os på mail:</p>
+            <p>Kontakt os på mail:</p>
             <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#111;&#110;&#115;&#64;&#108;&#105;&#118;&#101;&#46;&#100;&#107;">&#108;&#105;&#111;&#110;&#115;&#64;&#108;&#105;&#118;&#101;&#46;&#100;&#107;</a>
         </div>
     </div>

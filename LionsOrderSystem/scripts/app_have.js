@@ -3,7 +3,12 @@ let basketList = document.querySelector('basket-list')
 let productElements = [];
 let basketItems = [];
 
-async function fetchProductsAll() {
+function pageLoaded() {
+    fetchProductsAll();
+    displayBasketItemCount();
+}
+
+function fetchProductsAll() {
     fetch('https://localhost:44373/api/Products/GetAll/Have')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
@@ -15,7 +20,7 @@ async function fetchProductsAll() {
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
                     <p>Pris kr. ${data.normalPricePerPiece} pr. styk - ${data.offerMinPieces} styk for kr. ${data.offerMinPieces * data.offerPricePerPiece} - derudover ${data.offerPricePerPiece} pr. styk</p>
-                    <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value="0"> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
+                    <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value=""> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
                 </div>
             </a>
             `
@@ -26,7 +31,7 @@ async function fetchProductsAll() {
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
                     <p>Pris kr. ${data.normalPricePerPiece} pr. styk</p>
-                    <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value="0"> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
+                    <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value=""> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
                 </div>
             </a>
             `
@@ -50,26 +55,45 @@ async function fetchProductsAll() {
     .catch(error => console.log(error));
 }
 
-function showBasketTab() {
-    body.classList.toggle('showBasket')
-}
-
-function hideBasketTab() {
-    body.classList.toggle('showBasket')
+function showBasket() {
+    window.location.href = "basket.html"
 }
 
 function addToBasket(button) {
-    var buttonId = button.id;
+    var selectedProductId = button.id;
     var quantityInputId = "";
     var quantityInput = "";
     var quantity = "";
 
-    quantityInputId = buttonId + "Qty";
+    quantityInputId = selectedProductId + "Qty";
     quantityInput = document.getElementById(quantityInputId);
     quantity = parseInt(quantityInput.value);
 
-    console.log("Product added to basket"); // Implementation for adding product to basket
-    console.log("Button Id: " + buttonId); // Implementation for adding product to basket
-    console.log("Input Id: " + quantityInputId); // Implementation for adding product to basket
-    console.log("Quantity: " + quantity); // Implementation for adding product to basket}
+    if (isNaN(quantity) || quantity <= 0) {
+        alert("Venligst indtast en gyldig mængde større end 0");
+        return;
+    }
+
+    let basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+    const existingBasketIndex = basket.findIndex(item => item.id === selectedProductId);
+
+    if (existingBasketIndex !== -1 && basket[existingBasketIndex].quantity > 0) {
+        basket[existingBasketIndex].quantity += quantity;
+    } else {
+        basket.push({
+            id: selectedProductId,
+            quantity: quantity
+        });
+    }
+
+    sessionStorage.setItem("basket", JSON.stringify(basket));
+
+    displayBasketItemCount();
+}
+
+function displayBasketItemCount() {
+    const basketItemCount = document.getElementById("basket-item-count");
+    const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+    const basketTotal = basket.reduce((total, item) => total + item.quantity, 0);
+    basketItemCount.textContent = basketTotal;
 }
