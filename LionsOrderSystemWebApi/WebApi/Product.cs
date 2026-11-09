@@ -15,6 +15,8 @@ public class Product
 
     public required bool SoldOut { get; set; }
 
+    public required bool NotReleased { get; set; }
+
     [StringLength(100)]
     public required string GroupName { get; set; } = null!;
 

@@ -116,8 +116,8 @@ body {
 .product-logo {
     height: 180px;
     width: 120px;
-    border-color: var(--text-clr);
-    border-width: 2px;
+    border-color: gray;
+    border-width: 1px;
     border-style: solid;
 }
 

@@ -3,7 +3,8 @@
 <head>
     <title>Lions Club Vinderup</title>
     <link rel="stylesheet" href="styles\style_basket.css">
-    <script type="text/javascript" src="scripts\app_basket.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <script type="text/javascript" src="scripts\script_basket.js" defer></script>
 </head>
 <body onload="pageLoaded()">
     <nav class="navbar">
@@ -33,7 +34,21 @@
         <p>INDKØBSKURV</p>
     </div>
 
-    <div class="emptyspace">
+    <div class="basket-container">
+        <div class="basket-header">
+            <span>Produkt</span><!-- Basket items will be dynamically added here -->
+            <span>Antal</span><!-- Basket items will be dynamically added here -->
+            <span>Total</span><!-- Basket items will be dynamically added here -->
+            <span>Fjern</span><!-- Basket items will be dynamically added here -->
+        </div>
+
+        <div class="basket-items">
+        </div>
+
+        <div class="basket-total">
+            <p>Samlet pris <span id="grandtotal">0,00 kr.</span></p>
+            <button class="confirm-button" onclick="makeOrder()">Bestil</button>
+        </div>
     </div>
 
     <div class="title3">

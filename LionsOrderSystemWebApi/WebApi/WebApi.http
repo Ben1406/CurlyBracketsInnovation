@@ -5,5 +5,5 @@ Accept: application/json
 
 ###
 
-GET {{WebApi_HostAddress}}/api/Products/GetById/1
+GET {{WebApi_HostAddress}}/api/Products/GetById/26101
 Accept: application/json

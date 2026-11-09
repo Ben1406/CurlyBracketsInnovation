@@ -9,13 +9,13 @@ function pageLoaded() {
 }
 
 function fetchProductsAll() {
-    fetch('https://localhost:44373/api/Products/GetAll/GrillSennep')
+    fetch('https://localhost:44373/api/Products/GetAll/JuleSennep')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         if (data.active == true) {
             const elementWithOffer = `
             <a class="product-card">
-                <img class="product-logo" src=images/${data.imageName} alt="empty">
+                <img class="product-logo" src=images/${data.imageName} alt="venter på foto">
                 <div class="product-text">
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
@@ -26,7 +26,7 @@ function fetchProductsAll() {
             `
             const elementWithoutOffer = `
             <a class="product-card">
-                <img class="product-logo" src=images/${data.imageName} alt="empty">
+                <img class="product-logo" src=images/${data.imageName} alt="venter på foto">
                 <div class="product-text">
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
@@ -38,7 +38,7 @@ function fetchProductsAll() {
 
             const elementSoldOut = `
             <a class="product-card">
-                <img class="product-logo" src=images/${data.imageName} alt="empty">
+                <img class="product-logo" src=images/${data.imageName} alt="venter på foto">
                 <div class="product-text">
                     <p class="product-title">${data.description}</p>
                     <p>${data.description2}</p>
@@ -47,8 +47,20 @@ function fetchProductsAll() {
             </a>
             `
 
+            const elementNotReleased = `
+            <a class="product-card">
+                <img class="product-logo" src=images/${data.imageName} alt="venter på foto">
+                <div class="product-text">
+                    <p class="product-title">${data.description}</p>
+                    <p>${data.description2}</p>
+                    <p>IKKE UDKOMMET ENDNU !!!</p>
+                </div>
+            </a>
+            `
+
             productElements = data.offerMinPieces > 0 && data.offerPricePerPiece > 0 ? elementWithOffer : elementWithoutOffer;
             if (data.soldOut == true) { productElements = elementSoldOut;}
+            if (data.notReleased == true) { productElements = elementNotReleased;}
             document.querySelector(".product-section").insertAdjacentHTML('beforeend', productElements);
         }
     }))
@@ -59,7 +71,7 @@ function showBasket() {
     window.location.href = "basket.html"
 }
 
-function addToBasket(button) {
+async function addToBasket(button) {
     var selectedProductId = button.id;
     var quantityInputId = "";
     var quantityInput = "";
@@ -80,9 +92,19 @@ function addToBasket(button) {
     if (existingBasketIndex !== -1 && basket[existingBasketIndex].quantity > 0) {
         basket[existingBasketIndex].quantity += quantity;
     } else {
-        basket.push({
-            id: selectedProductId,
-            quantity: quantity
+        await fetch('https://localhost:44373/api/Products/GetById/' + selectedProductId)
+        .then(res => { return res.json(); })
+        .then(productItem => {
+            basket.push({
+                id: selectedProductId,
+                description: productItem.description,
+                description2: productItem.description2,
+                imageName: productItem.imageName,
+                normalPricePerPiece: productItem.normalPricePerPiece,
+                offerPricePerPiece: productItem.offerPricePerPiece,
+                offerMinPieces: productItem.offerMinPieces,
+                quantity: quantity
+            });
         });
     }
 

@@ -1,0 +1,66 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <title>Lions Club Vinderup</title>
+    <link rel="stylesheet" href="styles\style_makeorder.css">
+    <script type="text/javascript" src="scripts\script_makeorder.js" defer></script>
+</head>
+<body onload="pageLoaded()">
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Hjem</a></li>
+            <li><a href="have.html">Have</a></li>
+            <li><a href="julesennep.html">Jule Sennep</a></li>
+            <li><a href="grillsennep.html">Grill Sennep</a></li>
+            <li><a href="about.html">Om Lions</a></li>
+            <li>
+                <button class="basket-button" onclick="showBasket()">
+                    <img class="basket-logo" src="images\basket.png" alt="Indkøbskurv">
+                    <span id="basket-item-count">0</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="title1">
+        <a href="index.html">
+            <img class="lions-logo" src="images\lions_logo.png" alt="Lions Club Vinderup Logo">
+        </a>
+        <p>LIONS CLUB VINDERUP</p>
+    </div>
+
+    <div class="title2">
+        <p>BESTILLING</p>
+        <p>Udfyld venligst dine oplysninger nedenfor.</p>
+        <p>Levering er gratis i den gamle Vinderup Kommune (postnr. 7830)</p>
+        <p>Bor du andre steder vil der givetvis være et gebyr for levering.</p>
+    </div>
+
+    <div class="person-card">
+        <p class="card-line" id="fullnameText">Fulde navn <input id="fullnameInput" type="text" min="0" value=""></p>
+        <p class="card-line">Jeg bor i Vinderup kommune <input id="live_in_vinderup" type="checkbox" checked="checked" onclick="toggleLiveInVinderup(this)"></p>
+        <p class="card-line" id="addressText">Adresse <input id="addressInput" type="text" min="0" value=""></p>
+        <p class="card-line" id="zipText">Postnr. <input id="zipInput" type="text" min="0" value=""></p>
+        <p class="card-line" id="cityText">By <input id="cityInput" type="text" min="0" value=""></p>
+        <p class="card-line">Telefon <input id="phone" type="tel" min="0" value=""></p>
+        <p class="card-line">Email <input id="email" type="email" min="0" value=""></p>
+        <p class="card-line">Telefon <input id="phone" type="tel" min="0" value=""></p>
+    </div>
+
+    <div class="title3">
+        <p>BETALING</p>
+        <p>Da vores hjemmeside ikke understøtter direkte betaling</p>
+        <p>skal betalingen ske via MobilePay/Vipps eller Bankoverførsel</p>
+        <p>når din bestilling er gennemført</p>
+    </div>
+
+    <div class="title4">
+        <p>Lions Club Vinderup</p>
+        <p>Al overskud går ubeskåret til velgørenhed</p>
+        <div class="mail-line">
+            <p>Kontakt os på mail:</p>
+            <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#111;&#110;&#115;&#64;&#108;&#105;&#118;&#101;&#46;&#100;&#107;">&#108;&#105;&#111;&#110;&#115;&#64;&#108;&#105;&#118;&#101;&#46;&#100;&#107;</a>
+        </div>
+    </div>
+</body>
+</html>
