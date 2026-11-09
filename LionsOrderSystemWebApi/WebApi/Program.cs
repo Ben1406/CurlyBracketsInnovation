@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using webApi;
 using WebApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,4 +29,7 @@ app.UseCors(options => options.WithOrigins("http://127.0.0.1:5500").AllowAnyMeth
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+var response = await PublicApiClient.SyncAllAddressFor7830();
+
 app.Run();

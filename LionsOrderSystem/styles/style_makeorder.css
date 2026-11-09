@@ -24,7 +24,7 @@ a {
 
 body {
     display: grid;
-    grid-template-rows: 60px auto auto 1fr auto;
+    grid-template-rows: 60px auto auto auto 1fr auto;
     min-height: 100vh;
     min-height: 100dvh;
     background-color: var(--base-clr);
@@ -87,6 +87,22 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 2em;
+}
+
+.title3 button {
+    padding: 12px 30px;
+}
+
+.title4 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
@@ -95,7 +111,7 @@ body {
     line-height: 2em;
 }
 
-.title4 {
+.title5 {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -152,11 +168,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: top;
     margin-top: 20px;
-    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: auto;
 }
 
 .card-line {
@@ -171,7 +187,7 @@ body {
 
 .card-line input {
     display: flex;
-    width: 400px;
+    width: 480px;
     height: 24px;
     padding: 5px;
     border: 1px solid #ccc;

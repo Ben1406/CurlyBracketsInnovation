@@ -2,7 +2,7 @@ let body = document.querySelector('body')
 
 function pageLoaded() {
     displayBasketItemCount();
-    displayPersonFields();
+    displayOrder();
 }
 
 function showBasket() {
@@ -16,28 +16,37 @@ function displayBasketItemCount() {
     basketItemCount.textContent = basketTotal;
 }
 
-function toggleLiveInVinderup(chkbox) {
-    displayPersonFields();
+function displayOrder() {
+    const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+
+    var grandtotal = 0;
+
+    for (let index = 0; index < basket.length; index++) {
+        const item = basket[index];
+        var itemTotal = 0;
+        
+        const basketDescription = item.description;
+        const basketDescription2 = item.description2;
+        const basketImageName = item.imageName;
+        const basketQuantity = parseInt(item.quantity);
+        const normalPrice = parseInt(item.normalPricePerPiece);
+        const offerPrice = parseInt(item.offerPricePerPiece);
+        const offerMinimumPieces = parseInt(item.offerMinPieces);
+        
+        if (basketQuantity < offerMinimumPieces) {
+            itemTotal = basketQuantity * normalPrice;
+        } else {
+            itemTotal = basketQuantity * offerPrice;
+        }
+        
+        grandtotal += itemTotal;
+    }
+
+    const grandtotalElement = document.getElementById("grandtotal");
+    const grandtotalFormat = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK" }).format(grandtotal);
+    grandtotalElement.textContent = grandtotalFormat;
 }
 
-function displayPersonFields()
-{
-    const liveInVinderup = document.getElementById("live_in_vinderup");
-    const checkedLiveInVinderup = liveInVinderup.checked;
-    
-    var fieldZipText = document.getElementById('zipText');
-    var fieldZipInput = document.getElementById('zipInput');
-    var fieldCityText = document.getElementById('cityText');
-    var fieldCityInput = document.getElementById('cityInput');
-    if (checkedLiveInVinderup) {
-        fieldZipText.style.display = 'none';
-        fieldZipInput.style.visibility = 'none';
-        fieldCityText.style.display = 'none';
-        fieldCityInput.style.visibility = 'none';
-    } else {
-        fieldZipText.style.display = 'flex';
-        fieldZipInput.style.visibility = 'flex';
-        fieldCityText.style.display = 'flex';
-        fieldCityInput.style.visibility = 'flex';
-    }
+function confirmOrder() {
+    //window.location.href = "makeorder.html"
 }

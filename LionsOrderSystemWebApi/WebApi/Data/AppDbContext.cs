@@ -5,6 +5,7 @@ namespace WebApi.Data;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Product> Products { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
