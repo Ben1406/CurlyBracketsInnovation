@@ -9,24 +9,30 @@ namespace WebApi;
 public class Address
 {
     [Key]
-    public required string id { get; set; } = null!;
+    public string id { get; set; } = null!;
 
-    public int status { get; set; }
-    public int darstatus { get; set; }
-    public string vejkode { get; set; } = null!;
-    public string vejnavn { get; set; } = null!;
-    public string husnr { get; set; } = null!;
-    public string etage { get; set; } = null!;
-    public string dør { get; set; } = null!;
-    public string supplerendebynavn { get; set; } = null!;
-    public string postnr { get; set; } = null!;
-    public string postnrnavn { get; set; } = null!;
-    public string kommunekode { get; set; } = null!;
-    public string kommunenavn { get; set; } = null!;
-    public string matrikelnr { get; set; } = null!;
-    public string regionskode { get; set; } = null!;
-    public string regionsnavn { get; set; } = null!;
-    public string sognekode { get; set; } = null!;
-    public string sognenavn { get; set; } = null!;
-    public string betegnelse { get; set; } = null!;
+    public int? status { get; set; }
+    public int? darstatus { get; set; }
+    public string? vejkode { get; set; }
+    public string? vejnavn { get; set; }
+    public string? husnr { get; set; }
+    public string? etage { get; set; }
+    public string? dør { get; set; }
+    public string? supplerendebynavn { get; set; }
+    public string? postnr { get; set; }
+    public string? postnrnavn { get; set; }
+    public string? kommunekode { get; set; }
+    public string? kommunenavn { get; set; }
+    public string? matrikelnr { get; set; }
+    public string? regionskode { get; set; }
+    public string? regionsnavn { get; set; }
+    public string? sognekode { get; set; }
+    public string? sognenavn { get; set; }
+    public string? betegnelse { get; set; }
+
+    public bool? x_open { get; set; }
+    public int? x_område { get; set; }
+    public string? x_rute { get; set; }
+    public int? x_lionsnr { get; set; }
+    public int? x_hjælpernr { get; set; }
 }

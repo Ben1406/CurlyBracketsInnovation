@@ -18,7 +18,7 @@ public class AddressesController : ControllerBase
     [HttpGet("GetAll")]
     public async Task<ActionResult<List<Address>>> GetAllAddresses()
     {
-        var roadNames = _dbContext.Addresses.Where(a => a.postnr == "7830").OrderBy(p => p.betegnelse).ToList();
+        var roadNames = _dbContext.Addresses.Where(a => a.x_open == true).OrderBy(p => p.betegnelse).ToList();
         return await Task.FromResult(Ok(roadNames));
     }
 }
