@@ -103,5 +103,11 @@ function updateBasketItem(index) {
 }
 
 function makeOrder() {
+    const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+    if (basket.length === 0) {
+        alert("Der er ikke nogen produkter i din indkøbskurv");
+        return;
+    }
+
     window.location.href = "makeorder.html"
 }

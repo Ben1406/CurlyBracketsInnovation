@@ -8,8 +8,8 @@ function pageLoaded() {
     displayBasketItemCount();
 }
 
-function fetchProductsAll() {
-    fetch('https://localhost:44373/api/Products/GetAll/JuleSennep')
+async function fetchProductsAll() {
+    await fetch('https://localhost:44373/api/Products/GetAll/JuleSennep')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         if (data.active == true) {

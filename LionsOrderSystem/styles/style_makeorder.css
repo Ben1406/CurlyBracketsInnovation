@@ -194,4 +194,37 @@ body {
     outline: none;
     text-align: left;
     font-size: 0.8em;
+    border-radius: 8px;
+}
+
+.addr-dropdown-container {
+    box-sizing: border-box;
+    position: relative;
+}
+
+.addr-options {
+    cursor: pointer;
+    margin-left: 308px;
+    text-align: left;
+    font-size: 0.9em;
+    max-height: 240px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 8px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 40px;
+    background-color: black;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.addr-option {
+    margin: 4px;
+}
+
+.addr-options.active {
+    opacity: 1;
+    pointer-events: auto;
 }

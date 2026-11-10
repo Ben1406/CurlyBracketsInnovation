@@ -3,6 +3,7 @@ let body = document.querySelector('body')
 function pageLoaded() {
     displayBasketItemCount();
     displayOrder();
+    fillAddresses();
 }
 
 function showBasket() {
@@ -45,6 +46,26 @@ function displayOrder() {
     const grandtotalElement = document.getElementById("grandtotal");
     const grandtotalFormat = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK" }).format(grandtotal);
     grandtotalElement.textContent = grandtotalFormat;
+}
+
+async function fillAddresses() {
+    var addressElements = '';
+
+    await fetch('https://localhost:44373/api/addresses/GetAll')
+    .then(res => { return res.json(); })
+    .then(data => data.forEach(data => {
+        addressElements += `
+        <div class="addr-option">${data.betegnelse}</div>
+        `
+    }))
+    .catch(error => console.log(error));
+
+    if (addressElements.length > 0)
+    {
+        console.log("Addresses found: " + addressElements.length);
+        document.querySelector(".addr-options").insertAdjacentHTML('beforeend', addressElements);
+        console.log("Addresses ready!");
+    }
 }
 
 function confirmOrder() {

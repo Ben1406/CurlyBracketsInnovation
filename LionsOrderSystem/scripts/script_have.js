@@ -8,8 +8,8 @@ function pageLoaded() {
     displayBasketItemCount();
 }
 
-function fetchProductsAll() {
-    fetch('https://localhost:44373/api/Products/GetAll/Have')
+async function fetchProductsAll() {
+    await fetch('https://localhost:44373/api/Products/GetAll/Have')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         if (data.active == true) {

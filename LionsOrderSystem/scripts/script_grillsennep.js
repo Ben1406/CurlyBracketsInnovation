@@ -8,8 +8,8 @@ function pageLoaded() {
     displayBasketItemCount();
 }
 
-function fetchProductsAll() {
-    fetch('https://localhost:44373/api/Products/GetAll/GrillSennep')
+async function fetchProductsAll() {
+    await fetch('https://localhost:44373/api/Products/GetAll/GrillSennep')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         if (data.active == true) {
