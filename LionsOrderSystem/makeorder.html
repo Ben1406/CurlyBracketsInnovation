@@ -37,15 +37,15 @@
     </div>
 
     <div class="person-card">
-        <p class="card-line">Fulde navn <input id="fullnameInput" type="text" value="" autocomplete="off"></p>
+        <p class="card-line">Navn <input id="fullnameInput" type="text" value="" placeholder="Indtast dit navn" autocomplete="?"></p>
         <div class="addr-dropdown-container">
-            <p class="card-line">Adresse <input id="addressInput" type="text" value="" autocomplete="off"></p>
-            <div class="addr-options active">
+            <p class="card-line">Adresse <input id="addressInput" type="text" value="" placeholder="Indtast din adresse" autocomplete=?" onclick="onAddressInputChangedEvent()", onkeyup="onAddressInputChangedEvent()"></p>
+            <div class="addr-options">
             </div>
         </div>
-        <p class="card-line">Telefon <input id="phoneInput" type="tel" value="" autocomplete="off"></p>
-        <p class="card-line">Email <input id="emailInput" type="email" value="" autocomplete="off"></p>
-        <p class="card-line">Hvor skal leveringen stilles <input id="locationInput" type="email" value="" autocomplete="off"></p>
+        <p class="card-line">Telefon <input id="phoneInput" type="tel" value="" placeholder="Indtast dit telefonnr." autocomplete="?"></p>
+        <p class="card-line">Mail <input id="mailInput" type="email" value="" placeholder="Indtast din mailadresse (ikke obligatorisk)" autocomplete="?"></p>
+        <p class="card-line">Hvor skal leveringen stilles <input id="dropoffInput" type="text" value="" placeholder="Hvor må vi stille din bestlling? (ikke obligatorisk)" autocomplete="?"></p>
     </div>
 
     <div class="title3">
