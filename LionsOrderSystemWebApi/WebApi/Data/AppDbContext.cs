@@ -14,6 +14,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .Build();
 
         var connectionString = config.GetConnectionString("DefaultConnection");
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseMySQL(connectionString);
     }
 }

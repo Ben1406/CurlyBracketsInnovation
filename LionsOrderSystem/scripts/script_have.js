@@ -92,7 +92,7 @@ async function addToBasket(button) {
     if (existingBasketIndex !== -1 && basket[existingBasketIndex].antal > 0) {
         basket[existingBasketIndex].antal += quantity;
     } else {
-        await fetch('https://localhost:44373/api/Products/GetById/' + selectedProductId)
+        await fetch('https://localhost:44373/api/Products/GetAll/' + selectedProductId)
         .then(res => { return res.json(); })
         .then(productItem => {
             basket.push({
