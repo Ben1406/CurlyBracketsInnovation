@@ -95,7 +95,7 @@ function updateBasketItem(index) {
     input.addEventListener("change", function () {
         const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
         console.log("Updating item at index:", index);
-        basket[index].quantity = parseInt(this.value);
+        basket[index].antal = parseInt(this.value);
         sessionStorage.setItem("basket", JSON.stringify(basket));
         displayBasketItemCount();
         displayBasketItems();

@@ -63,7 +63,7 @@ async function fetchProductsAll() {
             if (data.ikkefrigivet == true) { productElements = elementNotReleased;}
             document.querySelector(".product-section").insertAdjacentHTML('beforeend', productElements);
         }
-     }))
+    }))
     .catch(error => console.log(error));
 }
 
@@ -92,7 +92,7 @@ async function addToBasket(button) {
     if (existingBasketIndex !== -1 && basket[existingBasketIndex].antal > 0) {
         basket[existingBasketIndex].antal += quantity;
     } else {
-        await fetch('https://localhost:44373/api/Products/GetAll/' + selectedProductId)
+        await fetch('https://localhost:44373/api/Products/GetById/' + selectedProductId)
         .then(res => { return res.json(); })
         .then(productItem => {
             basket.push({
