@@ -13,7 +13,7 @@ function showBasket() {
 function displayBasketItemCount() {
     const basketItemCount = document.getElementById("basket-item-count");
     const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
-    const basketTotal = basket.reduce((total, item) => total + item.quantity, 0);
+    const basketTotal = basket.reduce((total, item) => total + item.antal, 0);
     basketItemCount.textContent = basketTotal;
 }
 
@@ -26,13 +26,13 @@ function displayOrder() {
         const item = basket[index];
         var itemTotal = 0;
         
-        const basketDescription = item.description;
-        const basketDescription2 = item.description2;
-        const basketImageName = item.imageName;
-        const basketQuantity = parseInt(item.quantity);
-        const normalPrice = parseInt(item.normalPricePerPiece);
-        const offerPrice = parseInt(item.offerPricePerPiece);
-        const offerMinimumPieces = parseInt(item.offerMinPieces);
+        const basketDescription = item.beskrivelse;
+        const basketDescription2 = item.beskrivelse2;
+        const basketImageName = item.billedenavn;
+        const basketQuantity = parseInt(item.antal);
+        const normalPrice = parseInt(item.normalprisperstyk);
+        const offerPrice = parseInt(item.tilbudsprisperstyk);
+        const offerMinimumPieces = parseInt(item.tilbudminstyk);
         
         if (basketQuantity < offerMinimumPieces) {
             itemTotal = basketQuantity * normalPrice;

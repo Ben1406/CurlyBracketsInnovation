@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApi;
 
-[Table("Address")]
+[Table("adresser")]
 [PrimaryKey("id")]
-public class Address
+public class Adresser
 {
     [Key]
     public string id { get; set; } = null!;
@@ -30,7 +30,7 @@ public class Address
     public string? sognenavn { get; set; }
     public string? betegnelse { get; set; }
 
-    public bool? x_open { get; set; }
+    public bool? x_aktiv { get; set; }
     public int? x_område { get; set; }
     public string? x_rute { get; set; }
     public int? x_lionsnr { get; set; }

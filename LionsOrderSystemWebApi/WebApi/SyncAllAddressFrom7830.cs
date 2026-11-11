@@ -1,6 +1,4 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using WebApi;
@@ -26,10 +24,10 @@ public static class PublicApiClient
             var statusCode = response.EnsureSuccessStatusCode();
 
             string jsonResponse = await response.Content.ReadAsStringAsync();
-            var addresses = JsonSerializer.Deserialize<List<Address>>(jsonResponse);
-            if (addresses is not null)
+            var adresser = JsonSerializer.Deserialize<List<Adresser>>(jsonResponse);
+            if (adresser is not null)
             {
-                await StoredInDatabase(addresses);
+                await StoredInDatabase(adresser);
             }
 
             return statusCode;
@@ -41,21 +39,21 @@ public static class PublicApiClient
         }
     }
 
-    public static async Task<bool> StoredInDatabase(List<Address> apiAddresses)
+    public static async Task<bool> StoredInDatabase(List<Adresser> apiAdresser)
     {
         try
         {
             var _dbContext = new AppDbContext(new DbContextOptions<AppDbContext>());
-            var dbAddresses = _dbContext.Addresses.Where(a => a.postnr == "7830").ToList();
+            var dbAdresser = _dbContext.Adresser.Where(a => a.postnr == "7830").ToList();
 
             var newAddrFound = 0;
 
-            foreach (var apiAddr in apiAddresses)
+            foreach (var apiAddr in apiAdresser)
             {
-                var existsAddress = dbAddresses.SingleOrDefault(a => a.id == apiAddr.id);
+                var existsAddress = dbAdresser.SingleOrDefault(a => a.id == apiAddr.id);
                 if (existsAddress is null || string.IsNullOrEmpty(existsAddress.id))
                 {
-                    var newAddress = new Address
+                    var newAddress = new Adresser
                     {
                         id = apiAddr.id,
                         status = apiAddr.status,
@@ -78,7 +76,7 @@ public static class PublicApiClient
                         betegnelse = apiAddr.betegnelse
                     };
 
-                    _dbContext.Addresses.Add(newAddress);
+                    _dbContext.Adresser.Add(newAddress);
 
                     newAddrFound += 1;
                 }
@@ -87,7 +85,7 @@ public static class PublicApiClient
             if (newAddrFound > 0)
             {
                 _dbContext.SaveChanges();
-                Console.WriteLine($"New addresses found: {newAddrFound}");
+                Console.WriteLine($"Nye adresser fundet: {newAddrFound}");
             }
 
             return true;
