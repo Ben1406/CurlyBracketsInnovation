@@ -90,7 +90,7 @@ public static class PublicApiClient
 
             return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             return false;
         }

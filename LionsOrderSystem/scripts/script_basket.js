@@ -43,7 +43,10 @@ function displayBasketItems() {
         const offerPrice = parseInt(item.tilbudsprisperstyk);
         const offerMinimumPieces = parseInt(item.tilbudminstyk);
         
-        if (basketQuantity < offerMinimumPieces) {
+        if (offerPrice <= 0 || offerMinimumPieces <= 0)
+        {
+            itemTotal = basketQuantity * normalPrice;
+        } else if (basketQuantity < offerMinimumPieces) {
             itemTotal = basketQuantity * normalPrice;
         } else {
             itemTotal = basketQuantity * offerPrice;
@@ -55,19 +58,37 @@ function displayBasketItems() {
 
         const basketItem = document.createElement("div");
         basketItem.classList.add("basket-item");
-        basketItem.innerHTML = `
-            <div class="basket-product">
-                <img src="images/${basketImageName}">
-                <div class="product-text">
-                    <p>${basketDescription}</p>
-                    <p>${basketDescription2}</p>
-                    <p>Pris kr. ${normalPrice} pr. styk - ${offerMinimumPieces} styk for kr. ${offerMinimumPieces * offerPrice} - derudover ${offerPrice} pr. styk</p>
+        
+        if (offerPrice > 0 && offerMinimumPieces > 0)
+        {
+            basketItem.innerHTML = `
+                <div class="basket-product">
+                    <img src="images/${basketImageName}">
+                    <div class="product-text">
+                        <p>${basketDescription}</p>
+                        <p>${basketDescription2}</p>
+                        <p>Pris kr. ${normalPrice} pr. styk - ${offerMinimumPieces} styk for kr. ${offerMinimumPieces * offerPrice} - derudover ${offerPrice} pr. styk</p>
+                    </div>
                 </div>
-            </div>
-            <div class="basket-quantity"><input type="number" id="basket-quantity-${index}" value="${basketQuantity}" min="1" data-index="${index}"></div>
-            <span class="basket-totalprice">${itemtotalFormat}</span>
-            <button class="remove-button" id="remove-button-${index}" data-index="${index}"><i class="ri-close-line"></i></button>
-        `;
+                <div class="basket-quantity"><input type="number" id="basket-quantity-${index}" value="${basketQuantity}" min="1" data-index="${index}"></div>
+                <span class="basket-totalprice">${itemtotalFormat}</span>
+                <button class="remove-button" id="remove-button-${index}" data-index="${index}"><i class="ri-close-line"></i></button>
+            `;
+        } else {
+            basketItem.innerHTML = `
+                <div class="basket-product">
+                    <img src="images/${basketImageName}">
+                    <div class="product-text">
+                        <p>${basketDescription}</p>
+                        <p>${basketDescription2}</p>
+                        <p>Pris kr. ${normalPrice} pr. styk</p>
+                    </div>
+                </div>
+                <div class="basket-quantity"><input type="number" id="basket-quantity-${index}" value="${basketQuantity}" min="1" data-index="${index}"></div>
+                <span class="basket-totalprice">${itemtotalFormat}</span>
+                <button class="remove-button" id="remove-button-${index}" data-index="${index}"><i class="ri-close-line"></i></button>
+            `;
+        }
 
         basketItemsContainer.appendChild(basketItem);
         removeBasketItem(index);

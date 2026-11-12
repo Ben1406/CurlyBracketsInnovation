@@ -15,19 +15,19 @@ public class ProductsController : ControllerBase
         _dbContext = new AppDbContext(new DbContextOptions<AppDbContext>());
     }
 
-    [HttpGet("GetAll/{gruppenavn}")]
+    [HttpGet("GetAllProducts/{gruppenavn}")]
     public async Task<ActionResult<List<Produkter>>> GetAllProducts(string gruppenavn)
     {
         var produkter = _dbContext.Produkter.Where(p => p.gruppenavn == gruppenavn).OrderBy(p => p.id).ToList();
         return await Task.FromResult(Ok(produkter));
     }
 
-    [HttpGet("GetById/{id}")]
+    [HttpGet("GetProductById/{id}")]
     public async Task<ActionResult<Produkter?>> GetProductById(string id)
     {
-        var produkter = _dbContext.Produkter.FirstOrDefault(p => p.id == id);
+        var produkt = _dbContext.Produkter.FirstOrDefault(p => p.id == id);
 
-        if (produkter is null) return NotFound("Produktet med id blev ikke fundet.");
-        return await Task.FromResult(Ok(produkter));
+        if (produkt is null) return NotFound("Produkt med id blev ikke fundet.");
+        return await Task.FromResult(Ok(produkt));
     }
 }

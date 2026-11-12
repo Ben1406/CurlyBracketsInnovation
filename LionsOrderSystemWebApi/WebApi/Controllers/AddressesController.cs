@@ -15,7 +15,7 @@ public class AddressesController : ControllerBase
         _dbContext = new AppDbContext(new DbContextOptions<AppDbContext>());
     }
 
-    [HttpGet("GetAll")]
+    [HttpGet("GetAllAddresses")]
     public async Task<ActionResult<List<Adresser>>> GetAllAddresses()
     {
         var adresser = _dbContext.Adresser.Where(a => a.x_aktiv == true).OrderBy(p => p.betegnelse).ToList();
