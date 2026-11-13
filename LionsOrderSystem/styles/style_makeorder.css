@@ -229,34 +229,14 @@ body {
     pointer-events: auto;
 }
 
-.paym-dropdown-container {
-    box-sizing: border-box;
-    position: relative;
-}
-
-.paym-options {
-    cursor: pointer;
-    margin-left: 308px;
+.paymentmethodSelect {
+    display: flex;
+    width: 492px;
+    height: 36px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    outline: none;
     text-align: left;
-    font-size: 0.9em;
-    max-height: 240px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    font-size: 0.8em;
     border-radius: 8px;
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 40px;
-    background-color: black;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.paym-option {
-    margin: 4px;
-}
-
-.paym-options.active {
-    opacity: 1;
-    pointer-events: auto;
 }

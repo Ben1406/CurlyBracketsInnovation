@@ -4,7 +4,6 @@ function pageLoaded() {
     displayBasketItemCount();
     displayOrder();
     fillAddresses();
-    fillPaymentmethod();
 }
 
 function showBasket() {
@@ -76,11 +75,6 @@ async function fillAddresses() {
     }
 }
 
-function fillPaymentmethod()
-{
-    const paymentmethodInput = document.getElementById("paymentmethodInput");
-}
-
 function onAddressInputChangedEvent()
 {
     const addressOptions = document.querySelector(".addr-options");
@@ -112,18 +106,35 @@ async function confirmOrder() {
     const phoneInput = document.getElementById("phoneInput");
     const mailInput = document.getElementById("mailInput");
     const dropoffInput = document.getElementById("dropoffInput");
-    const paymentmethodInput = document.getElementById("paymentmethodInput");
+    const paymentmethodSelect = document.getElementById("paymentmethodSelect");
 
     const fullnameValue = fullnameInput.value ?? "";
     const addressValue = addressInput.value ?? "";
     const phoneValue = phoneInput.value ?? "";
     const mailValue = mailInput.value ?? "";
     const dropoffValue = dropoffInput.value ?? "";
-    const paymentmethodValue = paymentmethodInput.value ?? "";
+    const paymentmethodValue = paymentmethodSelect.value ?? "";
 
     if (fullnameValue.length < 2)
     {
         alert("Ugyldigt navn");
+        return;
+    }
+
+    var addressValid = false;
+    const addressList = document.querySelectorAll(".addr-option");
+    addressList.forEach((addrOption) => {
+        const addressText = addrOption.textContent.toLowerCase();
+        if (addressText == addressValue.toLowerCase())
+        {
+            addressValid = true;
+            return;
+        };
+    });
+    if (!addressValid)
+    {
+        alert("Ugyldigt adresse");
+        addressInput.value = "";
         return;
     }
 
@@ -145,6 +156,8 @@ async function confirmOrder() {
             return;
         }
     }
+
+    console.log("Payment: " + paymentmethodValue);
 
     if (paymentmethodValue.length <= 0)
     {

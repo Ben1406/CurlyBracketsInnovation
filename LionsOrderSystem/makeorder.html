@@ -47,9 +47,14 @@
         <p class="card-line">Mail <input id="mailInput" type="text" value="" placeholder="Indtast din mailadresse (ikke nødvendig)" autocomplete="new-password"></p>
         <p class="card-line">Hvor skal leveringen stilles <input id="dropoffInput" type="text" value="" placeholder="Hvor må vi stille din bestlling? (ikke nødvendig)" autocomplete="new-password"></p>
         <div class="paym-dropdown-container">
-            <p class="card-line">Betalingsmetode <input id="paymentmethodInput" type="text" value="" placeholder="Vælg betalingsmetode" autocomplete="new-password" readonly"></p>
-            <div class="paym-options">
-            </div>
+            <p class="card-line">Betalingsmetode 
+                <select class="paymentmethodSelect" id="paymentmethodSelect">
+                    <option value="">Vælg betalingsmetode</option>
+                    <option value="mobilepay"><span class="paym-option">MobilePay/Vipps ved bestilling (88345)</span></option>
+                    <option value="bank"><span class="opaym-option">Bankoverførsel ved bestilling (reg.nr. xxxx kontonr. xxxxxx)</span></option>
+                    <option value="kontant"><span class="paym-option">Kontant ved levering</span></option>
+                </select>
+            </p>
         </div>
     </div>
 
@@ -61,8 +66,7 @@
     <div class="title4">
         <p>BETALING</p>
         <p>Da vores hjemmeside ikke understøtter direkte betaling</p>
-        <p>skal betalingen ske via MobilePay/Vipps eller Bankoverførsel</p>
-        <p>når din bestilling er gennemført</p>
+        <p>skal betalingen ske via MobilePay/Vipps, Bankoverførsel eller Kontant</p>
     </div>
 
     <div class="title5">
