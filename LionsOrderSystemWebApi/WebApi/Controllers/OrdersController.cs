@@ -38,13 +38,13 @@ public class OrdersController : ControllerBase
         if (sidsteordre is null) return new Ordrer()
         {
             ordreid = 0,
-            bestillingsdato = DateTime.Now,
             navn = "",
             adresse = "",
             telefon = "",
             mail = "",
             stilles = "",
-            totalpris = 0
+            totalpris = 0,
+            betalingsmetode = ""
         };
         return await Task.FromResult(Ok(sidsteordre));
     }
@@ -58,20 +58,21 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost("SetNewOrder")]
-    public async Task<ActionResult<bool>> SetNewOrder(int ordreid, string navn, string adresse, string telefon, string? mail, string? stilles, int totalpris)
+    public async Task<ActionResult<bool>> SetNewOrder(Ordrer ordrer)
     {
         try
         {
             var nyOrdrer = new Ordrer
             {
-                ordreid = ordreid,
+                ordreid = ordrer.ordreid,
                 bestillingsdato = DateTime.Now.Date,
-                navn = navn,
-                adresse = adresse,
-                telefon = telefon,
-                mail = mail,
-                stilles = stilles,
-                totalpris = totalpris
+                navn = ordrer.navn,
+                adresse = ordrer.adresse,
+                telefon = ordrer.telefon,
+                mail = ordrer.mail,
+                stilles = ordrer.stilles,
+                totalpris = ordrer.totalpris,
+                betalingsmetode = ordrer.betalingsmetode
             };
 
             _dbContext.Ordrer.Add(nyOrdrer);
@@ -85,21 +86,22 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost("SetNewOrderLine")]
-    public async Task<ActionResult<bool>> SetNewOrderLine(int ordreid, int orderlinjeid, string produktid, string produktbeskrivelse, string? produktbeskrivelse2, int antal, int normalprisperstyk, int? tilbudsprisperstyk, int? tilbudminstyk)
+    public async Task<ActionResult<bool>> SetNewOrderLine(OrdreLinjer ordreLinjer)
     {
         try
         {
             var nyOrdreLinje = new OrdreLinjer
             {
-                ordreid = ordreid,
-                ordrelinjeid = orderlinjeid,
-                produktid = produktid,
-                produktbeskrivelse = produktbeskrivelse,
-                produktbeskrivelse2 = produktbeskrivelse2,
-                antal = antal,
-                normalprisperstyk = normalprisperstyk,
-                tilbudsprisperstyk = tilbudsprisperstyk,
-                tilbudminstyk = tilbudminstyk
+                ordreid = ordreLinjer.ordreid,
+                ordrelinjeid = ordreLinjer.ordrelinjeid,
+                produktid = ordreLinjer.produktid,
+                produktbeskrivelse = ordreLinjer.produktbeskrivelse,
+                produktbeskrivelse2 = ordreLinjer.produktbeskrivelse2,
+                antal = ordreLinjer.antal,
+                normalprisperstyk = ordreLinjer.normalprisperstyk,
+                tilbudsprisperstyk = ordreLinjer.tilbudsprisperstyk,
+                tilbudminstyk = ordreLinjer.tilbudminstyk,
+                totalpris = ordreLinjer.totalpris
             };
 
             _dbContext.OrdreLinjer.Add(nyOrdreLinje);

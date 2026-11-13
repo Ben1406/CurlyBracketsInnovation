@@ -4,6 +4,7 @@ function pageLoaded() {
     displayBasketItemCount();
     displayOrder();
     fillAddresses();
+    fillPaymentmethod();
 }
 
 function showBasket() {
@@ -75,6 +76,11 @@ async function fillAddresses() {
     }
 }
 
+function fillPaymentmethod()
+{
+    const paymentmethodInput = document.getElementById("paymentmethodInput");
+}
+
 function onAddressInputChangedEvent()
 {
     const addressOptions = document.querySelector(".addr-options");
@@ -106,18 +112,14 @@ async function confirmOrder() {
     const phoneInput = document.getElementById("phoneInput");
     const mailInput = document.getElementById("mailInput");
     const dropoffInput = document.getElementById("dropoffInput");
+    const paymentmethodInput = document.getElementById("paymentmethodInput");
 
     const fullnameValue = fullnameInput.value ?? "";
     const addressValue = addressInput.value ?? "";
     const phoneValue = phoneInput.value ?? "";
     const mailValue = mailInput.value ?? "";
     const dropoffValue = dropoffInput.value ?? "";
-
-    console.log("Full name: " + fullnameValue);
-    console.log("Address: " + addressValue);
-    console.log("Phone: " + phoneValue);
-    console.log("Mail: " + mailValue);
-    console.log("Drop: " + dropoffValue);
+    const paymentmethodValue = paymentmethodInput.value ?? "";
 
     if (fullnameValue.length < 2)
     {
@@ -144,40 +146,39 @@ async function confirmOrder() {
         }
     }
 
+    if (paymentmethodValue.length <= 0)
+    {
+        alert("Mangler betalingsmetode");
+        return;
+    }
+
     const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
     if (basket.length === 0) {
         alert("Der er ikke nogen produkter i din indkøbskurv");
         return;
     }
 
-    await createOrderInDb(fullnameValue, addressValue, phoneValue, mailValue, dropoffValue);
+    await createOrderInDb(fullnameValue, addressValue, phoneValue, mailValue, dropoffValue, paymentmethodValue);
 
     window.location.href = "confirmedOrder.html"
 };
 
-async function createOrderInDb(fullname, address, phone, mail, dropoff)
+async function createOrderInDb(fullname, address, phone, mail, dropoff, paymentmethod)
 {
     var orderid = 0;
     var orderlineid = 0;
     var grandtotal = 0;
 
-    sessionStorage.removeItem("order");
-    const order = JSON.parse(sessionStorage.getItem("order")) || [];
-    sessionStorage.removeItem("orderlines");
-    const orderlines = JSON.parse(sessionStorage.getItem("orderlines")) || [];
-
-    console.log("GetLastOrderId");
-
     await fetch('https://localhost:44373/api/Orders/GetLastOrderId')
         .then(res => { return res.json(); })
         .then(lastorder => {
-            orderid = lastorder.ordreid + 1;
+            orderid = lastorder.ordreid;
         });
 
-    console.log("OrderId: " + orderid);
+    orderid += 1;
 
     const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
-    for (let index = 0; index < basket.length; index++) {
+    for (var index = 0; index < basket.length; index++) {
         const item = basket[index];
         var itemTotal = 0;
         
@@ -201,34 +202,57 @@ async function createOrderInDb(fullname, address, phone, mail, dropoff)
         grandtotal += itemTotal;
         orderlineid += 1;
 
-        const newOrder = {
+        const newOrderLine = {
             ordreid: orderid,
-            navn: fullname,
-            adresse: address,
-            telefon: phone,
-            mail: mail,
-            stilles: dropoff,
-            totalpris: grandtotal
+            ordrelinjeid: orderlineid,
+            produktid: basketProductid,
+            produktbeskrivelse: basketDescription,
+            produktbeskrivelse2: basketDescription2,
+            antal: basketQuantity,
+            normalprisperstyk: normalPrice,
+            tilbudsprisperstyk: offerPrice,
+            tilbudminstyk: offerMinimumPieces,
+            totalpris: itemTotal
         };
 
-        const options = {
-            method: 'POST',
+        const response = await fetch('https://localhost:44373/api/Orders/SetNewOrderLine', {
+            method: "POST",
+            body: JSON.stringify(newOrderLine),
             headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(newOrder)
-        };
+                'Content-Type': 'application/json'
+            }
+        });
 
-        await fetch('https://localhost:44373/api/Orders/SetNewOrder', options)
-            .then(data => {
-                if (data.ok)
-                {
-                    console.log("OK!");
-                } else {
-                    console.log("ERROR!");
-                }
-            });
+        if (!response.ok)
+        {
+            console.log("Error: " + response.statusText);
+            return false;
+        }
+    }
+
+    const newOrder = {
+        ordreid: orderid,
+        navn: fullname,
+        adresse: address,
+        telefon: phone,
+        mail: mail,
+        stilles: dropoff,
+        totalpris: grandtotal,
+        betalingsmetode: paymentmethod
+    };
+
+    const response = await fetch('https://localhost:44373/api/Orders/SetNewOrder', {
+        method: "POST",
+        body: JSON.stringify(newOrder),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!response.ok)
+    {
+        console.log("Error: " + response.statusText);
+        return false;
     }
 
     console.log("Order completed");
