@@ -42,9 +42,10 @@ public class OrdersController : ControllerBase
             adresse = "",
             telefon = "",
             mail = "",
-            stilles = "",
+            leveringsmetode = "",
             totalpris = 0,
-            betalingsmetode = ""
+            betalingsmetode = "",
+            note = ""
         };
         return await Task.FromResult(Ok(sidsteordre));
     }
@@ -70,9 +71,10 @@ public class OrdersController : ControllerBase
                 adresse = ordrer.adresse,
                 telefon = ordrer.telefon,
                 mail = ordrer.mail,
-                stilles = ordrer.stilles,
+                leveringsmetode = ordrer.leveringsmetode,
                 totalpris = ordrer.totalpris,
-                betalingsmetode = ordrer.betalingsmetode
+                betalingsmetode = ordrer.betalingsmetode,
+                note = ordrer.note
             };
 
             _dbContext.Ordrer.Add(nyOrdrer);

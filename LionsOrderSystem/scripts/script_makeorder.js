@@ -105,15 +105,17 @@ async function confirmOrder() {
     const addressInput = document.getElementById("addressInput");
     const phoneInput = document.getElementById("phoneInput");
     const mailInput = document.getElementById("mailInput");
-    const dropoffInput = document.getElementById("dropoffInput");
     const paymentmethodSelect = document.getElementById("paymentmethodSelect");
+    const deliverymethodSelect = document.getElementById("deliverymethodSelect");
+    const noteInput = document.getElementById("noteInput");
 
     const fullnameValue = fullnameInput.value ?? "";
     const addressValue = addressInput.value ?? "";
     const phoneValue = phoneInput.value ?? "";
     const mailValue = mailInput.value ?? "";
-    const dropoffValue = dropoffInput.value ?? "";
     const paymentmethodValue = paymentmethodSelect.value ?? "";
+    const deliverymethodValue = deliverymethodSelect.value ?? "";
+    const noteValue = noteInput.value ?? "";
 
     if (fullnameValue.length < 2)
     {
@@ -138,7 +140,7 @@ async function confirmOrder() {
         return;
     }
 
-    if (phoneValue.replace(' ', '').length != 8)
+    if (phoneValue.replace(" ", "").length < 8)
     {
         alert("Ugyldigt telefonnummer");
         return;
@@ -157,11 +159,15 @@ async function confirmOrder() {
         }
     }
 
-    console.log("Payment: " + paymentmethodValue);
-
     if (paymentmethodValue.length <= 0)
     {
-        alert("Mangler betalingsmetode");
+        alert("Mangler valf af betaling");
+        return;
+    }
+
+    if (deliverymethodValue.length <= 0)
+    {
+        alert("Mangler valg af levering");
         return;
     }
 
@@ -171,12 +177,12 @@ async function confirmOrder() {
         return;
     }
 
-    await createOrderInDb(fullnameValue, addressValue, phoneValue, mailValue, dropoffValue, paymentmethodValue);
+    await createOrderInDb(fullnameValue, addressValue, phoneValue, mailValue, paymentmethodValue, deliverymethodValue, noteValue);
 
     window.location.href = "confirmedOrder.html"
 };
 
-async function createOrderInDb(fullname, address, phone, mail, dropoff, paymentmethod)
+async function createOrderInDb(fullname, address, phone, mail, paymentmethod, deliverymethod, note)
 {
     var orderid = 0;
     var orderlineid = 0;
@@ -249,9 +255,10 @@ async function createOrderInDb(fullname, address, phone, mail, dropoff, paymentm
         adresse: address,
         telefon: phone,
         mail: mail,
-        stilles: dropoff,
+        leveringsmetode: deliverymethod,
         totalpris: grandtotal,
-        betalingsmetode: paymentmethod
+        betalingsmetode: paymentmethod,
+        note: note
     };
 
     const response = await fetch('https://localhost:44373/api/Orders/SetNewOrder', {

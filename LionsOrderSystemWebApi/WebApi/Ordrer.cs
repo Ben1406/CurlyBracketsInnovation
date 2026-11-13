@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,9 +17,10 @@ public class Ordrer
     public required string adresse { get; set; } = null!;
     public required string telefon { get; set; } = null!;
     public string? mail { get; set; } = null!;
-    public string? stilles { get; set; } = null!;
+    public required string leveringsmetode { get; set; } = null!;
     public required int totalpris { get; set; }
     public required string betalingsmetode { get; set; } = null!;
+    public string? note { get; set; } = null!;
 }
 
 [Table("ordrelinjer")]

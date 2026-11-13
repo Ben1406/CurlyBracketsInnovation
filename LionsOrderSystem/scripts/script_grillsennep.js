@@ -19,7 +19,7 @@ async function fetchProductsAll() {
                 <div class="product-text">
                     <p class="product-title">${data.beskrivelse}</p>
                     <p>${data.beskrivelse2}</p>
-                    <p>Pris kr. ${data.normalprisperstyk} pr. styk - ${data.tilbudsprisperstyk} styk for kr. ${data.tilbudsprisperstyk * data.normalprisperstyk} - derudover ${data.normalprisperstyk} pr. styk</p>
+                    <p>Pris kr. ${data.normalprisperstyk} pr. styk - ${data.tilbudminstyk} styk for kr. ${data.tilbudminstyk * data.tilbudsprisperstyk} - derudover ${data.normalprisperstyk} pr. styk</p>
                     <p class="product-quantity">Antal: <input class="product-quantity-input" id=${data.id}Qty type="number" min="0" value=""> <button class="button-add" id=${data.id} onclick="addToBasket(this)">Læg i kurv</button></p>
                 </div>
             </a>

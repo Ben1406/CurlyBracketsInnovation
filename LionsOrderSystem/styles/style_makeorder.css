@@ -229,7 +229,7 @@ body {
     pointer-events: auto;
 }
 
-.paymentmethodSelect {
+.paymentmethodSelect, .deliverymethodSelect {
     display: flex;
     width: 492px;
     height: 36px;

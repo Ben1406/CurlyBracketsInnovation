@@ -21,4 +21,5 @@ public class Produkter
     public required int normalprisperstyk { get; set; }
     public required int tilbudsprisperstyk { get; set; }
     public required int tilbudminstyk { get; set; }
+    public required int vægtperstyk { get; set; }
 }

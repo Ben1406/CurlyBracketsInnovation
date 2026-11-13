@@ -39,23 +39,40 @@
     <div class="person-card">
         <p class="card-line">Navn <input id="fullnameInput" type="text" value="" placeholder="Indtast dit navn" autocomplete="new-password"></p>
         <div class="addr-dropdown-container">
-            <p class="card-line">Adresse <input id="addressInput" type="text" value="" placeholder="Indtast din adresse" autocomplete="new-password" onclick="onAddressInputChangedEvent()", onkeyup="onAddressInputChangedEvent()"></p>
+            <p class="card-line">Adresse <input id="addressInput" type="text" value="" placeholder="Begynd at indtaste din adresse og derefter vælg den fra listen" autocomplete="new-password" onclick="onAddressInputChangedEvent()", onkeyup="onAddressInputChangedEvent()"></p>
             <div class="addr-options">
             </div>
         </div>
         <p class="card-line">Telefon <input id="phoneInput" type="text" value="" placeholder="Indtast dit telefonnr." autocomplete="new-password"></p>
         <p class="card-line">Mail <input id="mailInput" type="text" value="" placeholder="Indtast din mailadresse (ikke nødvendig)" autocomplete="new-password"></p>
-        <p class="card-line">Hvor skal leveringen stilles <input id="dropoffInput" type="text" value="" placeholder="Hvor må vi stille din bestlling? (ikke nødvendig)" autocomplete="new-password"></p>
-        <div class="paym-dropdown-container">
-            <p class="card-line">Betalingsmetode 
+        <div class="paym-select-container">
+            <p class="card-line">Betaling 
                 <select class="paymentmethodSelect" id="paymentmethodSelect">
-                    <option value="">Vælg betalingsmetode</option>
-                    <option value="mobilepay"><span class="paym-option">MobilePay/Vipps ved bestilling (88345)</span></option>
-                    <option value="bank"><span class="opaym-option">Bankoverførsel ved bestilling (reg.nr. xxxx kontonr. xxxxxx)</span></option>
-                    <option value="kontant"><span class="paym-option">Kontant ved levering</span></option>
+                    <option value="">Vælg</option>
+                    <option value="mobilepay"><span class="paym-option">MobilePay/Vipps ved bestilling</span></option>
+                    <option value="bank"><span class="opaym-option">Bankoverførsel ved bestilling</span></option>
+                    <option value="kontant"><span class="paym-option">Kontant ved levering/afhentning</span></option>
                 </select>
             </p>
         </div>
+        <div class="delivery-select-container">
+            <p class="card-line">Levering 
+                <select class="deliverymethodSelect" id="deliverymethodSelect">
+                    <option value="">Vælg</option>
+                    <option value="henter-selv"><span class="delivery-option">Afhentes - Jeg henter selv hos Lions i Vinderup</span></option>
+                    <option value="stil-ved-fordøren"><span class="delivery-option">Leveres - Stilles ved min fordør</span></option>
+                    <option value="stil-ved-bagdøren"><span class="delivery-option">Leveres - Stilles ved min bagdør</span></option>
+                    <option value="stil-i-indkørsel"><span class="delivery-option">Leveres - Stilles i min indkørsel</span></option>
+                    <option value="stil-i-carport"><span class="delivery-option">Leveres - Stilles i min carport/garage</span></option>
+                    <option value="stil-under-halvtag"><span class="delivery-option">Leveres - Stilles under mit halvtag</span></option>
+                    <option value="stil--på-terrasse"><span class="delivery-option">Leveres - Stilles på min terrasse</span></option>
+                    <option value="stil-i-trillebør"><span class="delivery-option">Leveres - Stilles i min trillebør</span></option>
+                    <option value="stil-i-skur"><span class="delivery-option">Leveres - Stilles i mit skur</span></option>
+                    <option value="læs-bemærkning"><span class="delivery-option">Har skrevet det i bemærkning</span></option>
+                </select>
+            </p>
+        </div>
+        <p class="card-line">Bemærkning <input id="noteInput" type="text" value="" placeholder="Indtast en bemærkning (ikke nødvendigt)" autocomplete="new-password"></p>
     </div>
 
     <div class="title3">
