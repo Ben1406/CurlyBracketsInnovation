@@ -17,12 +17,18 @@ public static class PublicApiClient
     {
         try
         {
-            string date = "2026-01-15";
-            string track = "flemington";
+            string date = "2026-11-13";
+            string track = "Skive";
             int race = 1;
-            string raceCode = "gallops";
-            string country = "au";
+            string raceCode = "harness"; // galop = gallops, trav = harness, greyhound = greyhounds
+            string country = "dk";
 
+            // DAGENS LØB PÅ ALLE BANER:
+            // string endpointUrl = $"/v1/form/meetings?date={date}&race_code={raceCode}";
+            // DAGENS HESTE I ÉT LØB PÅ ÉN BANE:
+            // string endpointUrl = $"v1/form?date={date}&track={Uri.EscapeDataString(track)}&race={race}&race_code={raceCode}&country={country}";
+            // ALLE BANER:
+            // string endpointUrl = $"/v1/form/venues?raceType={raceCode}";
             string endpointUrl = $"v1/form?date={date}&track={Uri.EscapeDataString(track)}&race={race}&race_code={raceCode}&country={country}";
             const string apiKey = "fk_aefab52aeb0b430d49c6b95bc76e58236233f6a450ab408c70fee92eff11c503";
 
