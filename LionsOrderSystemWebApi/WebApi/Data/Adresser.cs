@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApi;
+namespace WebApi.Data;
 
 [Table("adresser")]
 [PrimaryKey("id")]

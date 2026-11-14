@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using WebApi;
 using WebApi.Data;
 
 namespace webApi;
@@ -9,6 +8,7 @@ namespace webApi;
 public static class PublicApiClient
 {
     private static readonly HttpClient _httpClient = new HttpClient();
+    private static readonly AppDbContext _dbContext = new AppDbContext(new DbContextOptions<AppDbContext>());
 
     public static async Task<HttpResponseMessage?> SyncAllAddressFor7830()
     {
@@ -17,6 +17,14 @@ public static class PublicApiClient
 
         try
         {
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = "Læser adresser fra 'api.danskadresseapi.dk'"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
@@ -32,9 +40,17 @@ public static class PublicApiClient
 
             return statusCode;
         }
-        catch (HttpRequestException e)
+        catch (HttpRequestException ex)
         {
-            Console.WriteLine($"HTTP eller Autorisationsfejl: {e.Message}");
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under SyncAllAddressFor7830: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            Console.WriteLine($"HTTP eller Autorisationsfejl: {ex.Message}");
             return null;
         }
     }
@@ -85,6 +101,15 @@ public static class PublicApiClient
             if (newAddrFound > 0)
             {
                 _dbContext.SaveChanges();
+
+                var log = new Log()
+                {
+                    tidspunkt = DateTime.Now,
+                    besked = $"Fandt '{newAddrFound}' nye adresser"
+                };
+                _dbContext.Log.Add(log);
+                await _dbContext.SaveChangesAsync();
+
                 Console.WriteLine($"Nye adresser fundet: {newAddrFound}");
             }
 

@@ -9,13 +9,13 @@ function pageLoaded() {
 }
 
 async function fetchProductsAll() {
-    await fetch('https://localhost:44373/api/Products/GetAllProducts/GrillSennep')
+    await fetch('https://localhost:44373/api/Products/GetAllProducts/Have')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         if (data.aktiv == true) {
             const elementWithOffer = `
             <a class="product-card">
-                <img class="product-logo" src=images/${data.billedenavn} alt="venter på foto">
+                <img class="product-logo" src=website/images/${data.billedenavn} alt="venter på foto">
                 <div class="product-text">
                     <p class="product-title">${data.beskrivelse}</p>
                     <p>${data.beskrivelse2}</p>
@@ -26,7 +26,7 @@ async function fetchProductsAll() {
             `
             const elementWithoutOffer = `
             <a class="product-card">
-                <img class="product-logo" src=images/${data.billedenavn} alt="venter på foto">
+                <img class="product-logo" src=website/images/${data.billedenavn} alt="venter på foto">
                 <div class="product-text">
                     <p class="product-title">${data.beskrivelse}</p>
                     <p>${data.beskrivelse2}</p>
@@ -38,7 +38,7 @@ async function fetchProductsAll() {
 
             const elementSoldOut = `
             <a class="product-card">
-                <img class="product-logo" src=images/${data.billedenavn} alt="venter på foto">
+                <img class="product-logo" src=website/images/${data.billedenavn} alt="venter på foto">
                 <div class="product-text">
                     <p class="product-title">${data.beskrivelse}</p>
                     <p>${data.beskrivelse2}</p>
@@ -49,7 +49,7 @@ async function fetchProductsAll() {
 
             const elementNotReleased = `
             <a class="product-card">
-                <img class="product-logo" src=images/${data.billedenavn} alt="venter på foto">
+                <img class="product-logo" src=website/images/${data.billedenavn} alt="venter på foto">
                 <div class="product-text">
                     <p class="product-title">${data.beskrivelse}</p>
                     <p>${data.beskrivelse2}</p>
@@ -92,7 +92,7 @@ async function addToBasket(button) {
     if (existingBasketIndex !== -1 && basket[existingBasketIndex].antal > 0) {
         basket[existingBasketIndex].antal += quantity;
     } else {
-        await fetch('https://localhost:44373/api/Products/GetProductById/' + selectedProductId)
+        await fetch('https://lcvinderup.dk/api/Products/GetProductById/' + selectedProductId)
         .then(res => { return res.json(); })
         .then(productItem => {
             basket.push({

@@ -18,16 +18,46 @@ public class ProductsController : ControllerBase
     [HttpGet("GetAllProducts/{gruppenavn}")]
     public async Task<ActionResult<List<Produkter>>> GetAllProducts(string gruppenavn)
     {
-        var produkter = _dbContext.Produkter.Where(p => p.gruppenavn == gruppenavn).OrderBy(p => p.id).ToList();
-        return await Task.FromResult(Ok(produkter));
+        try
+        {
+            var produkter = _dbContext.Produkter.Where(p => p.gruppenavn == gruppenavn).OrderBy(p => p.id).ToList();
+            return await Task.FromResult(Ok(produkter));
+        }
+        catch (Exception ex)
+        {
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under GetAllProducts: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            return NotFound("Fejlede under GetAllProducts");
+        }
     }
 
     [HttpGet("GetProductById/{id}")]
     public async Task<ActionResult<Produkter?>> GetProductById(string id)
     {
-        var produkt = _dbContext.Produkter.FirstOrDefault(p => p.id == id);
+        try
+        {
+            var produkt = _dbContext.Produkter.FirstOrDefault(p => p.id == id);
 
-        if (produkt is null) return NotFound("Produkt med id blev ikke fundet.");
-        return await Task.FromResult(Ok(produkt));
+            if (produkt is null) return NotFound("Produkt med id blev ikke fundet.");
+            return await Task.FromResult(Ok(produkt));
+        }
+        catch (Exception ex)
+        {
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under GetProductById: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            return NotFound("Fejlede under GetProductById");
+        }
     }
 }

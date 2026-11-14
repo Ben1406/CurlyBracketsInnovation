@@ -18,44 +18,104 @@ public class OrdersController : ControllerBase
     [HttpGet("GetAllOrders")]
     public async Task<ActionResult<List<Ordrer>>> GetAllOrders()
     {
-        var ordrer = _dbContext.Ordrer.OrderBy(o => o.ordreid).ToList();
-        return await Task.FromResult(Ok(ordrer));
+        try
+        {
+            var ordrer = _dbContext.Ordrer.OrderBy(o => o.ordreid).ToList();
+            return await Task.FromResult(Ok(ordrer));
+        }
+        catch (Exception ex)
+        {
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under GetAllOrders: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            return NotFound("Fejlede under GetAllOrders");
+        }
     }
 
     [HttpGet("GetOrderById/{ordreid}")]
     public async Task<ActionResult<Ordrer?>> GetOrderById(int ordreid)
     {
-        var ordre = _dbContext.Ordrer.FirstOrDefault(o => o.ordreid == ordreid);
+        try
+        {
+            var ordre = _dbContext.Ordrer.FirstOrDefault(o => o.ordreid == ordreid);
 
-        if (ordre is null) return NotFound("Ordre med id blev ikke fundet.");
-        return await Task.FromResult(Ok(ordre));
+            if (ordre is null) return NotFound("Ordre med id blev ikke fundet.");
+            return await Task.FromResult(Ok(ordre));
+        }
+        catch (Exception ex)
+        {
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under GetOrderById: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            return NotFound("Fejlede under GetOrderById");
+        }
     }
 
     [HttpGet("GetLastOrderId")]
     public async Task<ActionResult<Ordrer>> GetLastOrderId()
     {
-        var sidsteordre = _dbContext.Ordrer.OrderByDescending(o => o.ordreid).FirstOrDefault();
-        if (sidsteordre is null) return new Ordrer()
+        try
         {
-            ordreid = 0,
-            navn = "",
-            adresse = "",
-            telefon = "",
-            mail = "",
-            leveringsmetode = "",
-            totalpris = 0,
-            betalingsmetode = "",
-            note = ""
-        };
-        return await Task.FromResult(Ok(sidsteordre));
+            var sidsteordre = _dbContext.Ordrer.OrderByDescending(o => o.ordreid).FirstOrDefault();
+            if (sidsteordre is null) return new Ordrer()
+            {
+                ordreid = 0,
+                navn = "",
+                adresse = "",
+                telefon = "",
+                mail = "",
+                leveringsmetode = "",
+                totalpris = 0,
+                betalingsmetode = "",
+                note = ""
+            };
+            return await Task.FromResult(Ok(sidsteordre));
+        }
+        catch (Exception ex)
+        {
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under GetLastOrderId: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            return NotFound("Fejlede under GetLastOrderId");
+        }
     }
 
     [HttpGet("GetAllOrderLines/{ordreid}")]
     public async Task<ActionResult<List<OrdreLinjer>>> GetAllOrderLines(int ordreid)
     {
-        var ordreLinjer = _dbContext.OrdreLinjer.Where(o => o.ordreid == ordreid).OrderBy(o => o.ordrelinjeid).ToList();
-        if (ordreLinjer is null) return NotFound("Ordrelinjer med ordreid blev ikke fundet.");
-        return await Task.FromResult(Ok(ordreLinjer));
+        try
+        {
+            var ordreLinjer = _dbContext.OrdreLinjer.Where(o => o.ordreid == ordreid).OrderBy(o => o.ordrelinjeid).ToList();
+            if (ordreLinjer is null) return NotFound("Ordrelinjer med ordreid blev ikke fundet.");
+            return await Task.FromResult(Ok(ordreLinjer));
+        }
+        catch (Exception ex)
+        {
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under GetAllOrderLines: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            return NotFound("Fejlede under GetAllOrderLines");
+        }
     }
 
     [HttpPost("SetNewOrder")]
@@ -79,11 +139,20 @@ public class OrdersController : ControllerBase
 
             _dbContext.Ordrer.Add(nyOrdrer);
             await _dbContext.SaveChangesAsync();
+
             return await Task.FromResult(Ok(true));
         }
-        catch
+        catch (Exception ex)
         {
-            return BadRequest("Kunne ikke gemme ordre i databasen.");
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under SetNewOrder: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            return NotFound("Fejlede under SetNewOrder");
         }
     }
 
@@ -108,12 +177,20 @@ public class OrdersController : ControllerBase
 
             _dbContext.OrdreLinjer.Add(nyOrdreLinje);
             await _dbContext.SaveChangesAsync();
+
             return await Task.FromResult(Ok(true));
         }
-        catch
+        catch (Exception ex)
         {
-            return BadRequest("Kunne ikke gemme ordrelinje i databasen.");
+            var log = new Log()
+            {
+                tidspunkt = DateTime.Now,
+                besked = $"Fejlede under SetNewOrderLine: {ex}"
+            };
+            _dbContext.Log.Add(log);
+            await _dbContext.SaveChangesAsync();
+
+            return NotFound("Fejlede under SetNewOrderLine");
         }
     }
-
 }

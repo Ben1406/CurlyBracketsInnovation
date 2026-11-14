@@ -4,6 +4,7 @@ namespace WebApi.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
+    public DbSet<Log> Log { get; set; }
     public DbSet<Produkter> Produkter { get; set; }
     public DbSet<Adresser> Adresser { get; set; }
     public DbSet<Ordrer> Ordrer{ get; set; }

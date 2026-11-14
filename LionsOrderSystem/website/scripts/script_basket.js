@@ -63,7 +63,7 @@ function displayBasketItems() {
         {
             basketItem.innerHTML = `
                 <div class="basket-product">
-                    <img src="images/${basketImageName}">
+                    <img src="website/images/${basketImageName}">
                     <div class="product-text">
                         <p>${basketDescription}</p>
                         <p>${basketDescription2}</p>
@@ -77,7 +77,7 @@ function displayBasketItems() {
         } else {
             basketItem.innerHTML = `
                 <div class="basket-product">
-                    <img src="images/${basketImageName}">
+                    <img src="website/images/${basketImageName}">
                     <div class="product-text">
                         <p>${basketDescription}</p>
                         <p>${basketDescription2}</p>
