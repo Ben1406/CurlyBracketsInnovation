@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using webApi;
 using WebApi.Data;
+using webApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,24 +13,26 @@ builder.Services.AddMvc();
 builder.Services.AddHealthChecks();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(Globals.dbConnectionString));
 
 var app = builder.Build();
 
-app.UsePathBase("/api");
+Log.Write("WebApi starter");
 
-// Configure the HTTP request pipeline.
+app.UsePathBase("/api");
+app.MapHealthChecks("/health");
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.UseSwagger();       //swagger/v1/swagger.json
-    app.UseSwaggerUI();     //swagger/index.html
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 var origins = new string[] {
+    "http://127.0.0.1:5500",
     "http://lcvinderup.dk",
     "https://lcvinderup.dk",
-    "http://127.0.0.1:5500",
     "http://nt28.unoeuro.com",
     "https://nt28.unoeuro.com"
 };
@@ -39,22 +41,13 @@ app.UseCors(options => options.WithOrigins(origins)
     .AllowAnyHeader()
     .AllowAnyMethod());
 
-app.MapHealthChecks("/health");
-
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
 var response = await PublicApiClient.SyncAllAddressFor7830();
 
-var dbContext = new AppDbContext(new DbContextOptions<AppDbContext>());
-
-var log = new Log()
-{
-    tidspunkt = DateTime.Now,
-    besked = "WebApi started"
-};
-dbContext.Log.Add(log);
-dbContext.SaveChanges();
+Log.Write("WebApi startet");
 
 app.Run();

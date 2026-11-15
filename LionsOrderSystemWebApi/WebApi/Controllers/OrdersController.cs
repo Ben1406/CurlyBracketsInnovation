@@ -25,14 +25,7 @@ public class OrdersController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under GetAllOrders: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under GetAllOrders: {ex}");
             return NotFound("Fejlede under GetAllOrders");
         }
     }
@@ -49,14 +42,7 @@ public class OrdersController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under GetOrderById: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under GetOrderById: {ex}");
             return NotFound("Fejlede under GetOrderById");
         }
     }
@@ -83,14 +69,7 @@ public class OrdersController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under GetLastOrderId: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under GetLastOrderId: {ex}");
             return NotFound("Fejlede under GetLastOrderId");
         }
     }
@@ -106,7 +85,7 @@ public class OrdersController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
+            var log = new Logs()
             {
                 tidspunkt = DateTime.Now,
                 besked = $"Fejlede under GetAllOrderLines: {ex}"
@@ -114,6 +93,7 @@ public class OrdersController : ControllerBase
             _dbContext.Log.Add(log);
             await _dbContext.SaveChangesAsync();
 
+            Log.Write($"Fejlede under GetAllOrderLines: {ex}");
             return NotFound("Fejlede under GetAllOrderLines");
         }
     }
@@ -144,14 +124,7 @@ public class OrdersController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under SetNewOrder: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under SetNewOrder: {ex}");
             return NotFound("Fejlede under SetNewOrder");
         }
     }
@@ -182,14 +155,7 @@ public class OrdersController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under SetNewOrderLine: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under SetNewOrderLine: {ex}");
             return NotFound("Fejlede under SetNewOrderLine");
         }
     }

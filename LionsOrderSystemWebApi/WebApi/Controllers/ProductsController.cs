@@ -25,14 +25,7 @@ public class ProductsController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under GetAllProducts: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under GetAllProducts: {ex}");
             return NotFound("Fejlede under GetAllProducts");
         }
     }
@@ -49,14 +42,7 @@ public class ProductsController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under GetProductById: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under GetProductById: {ex}");
             return NotFound("Fejlede under GetProductById");
         }
     }

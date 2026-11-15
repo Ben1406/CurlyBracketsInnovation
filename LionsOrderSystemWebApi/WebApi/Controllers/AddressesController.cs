@@ -25,14 +25,7 @@ public class AddressesController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under GetAllAddresses: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under GetAllAddresses: {ex}");
             return NotFound("Fejlede under GetAllAddresses");
         }
     }

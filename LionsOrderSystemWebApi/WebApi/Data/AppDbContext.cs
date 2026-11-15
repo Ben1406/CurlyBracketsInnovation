@@ -4,7 +4,7 @@ namespace WebApi.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Log> Log { get; set; }
+    public DbSet<Logs> Log { get; set; }
     public DbSet<Produkter> Produkter { get; set; }
     public DbSet<Adresser> Adresser { get; set; }
     public DbSet<Ordrer> Ordrer{ get; set; }
@@ -16,7 +16,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .AddJsonFile("appsettings.json")
             .Build();
 
-        var connectionString = "server=mysql38.unoeuro.com;port=3306;user=lcvinderup_dk;password=3hepzt94HcRybAD6gnkm;database=lcvinderup_dk_db;allowpublicKeyretrieval=true";
+        var connectionString = Globals.dbConnectionString;
         optionsBuilder.UseMySQL(connectionString);
     }
 }

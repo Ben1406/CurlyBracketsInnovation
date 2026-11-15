@@ -17,13 +17,7 @@ public static class PublicApiClient
 
         try
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = "Læser adresser fra 'api.danskadresseapi.dk'"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
+            Log.Write("Læser adresser fra 'api.danskadresseapi.dk'");
 
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
@@ -42,14 +36,7 @@ public static class PublicApiClient
         }
         catch (HttpRequestException ex)
         {
-            var log = new Log()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under SyncAllAddressFor7830: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
+            Log.Write($"Fejlede under SyncAllAddressFor7830: {ex}");
             Console.WriteLine($"HTTP eller Autorisationsfejl: {ex.Message}");
             return null;
         }
@@ -98,17 +85,11 @@ public static class PublicApiClient
                 }
             }
 
+            Log.Write($"Fandt '{newAddrFound}' nye adresser");
+
             if (newAddrFound > 0)
             {
                 _dbContext.SaveChanges();
-
-                var log = new Log()
-                {
-                    tidspunkt = DateTime.Now,
-                    besked = $"Fandt '{newAddrFound}' nye adresser"
-                };
-                _dbContext.Log.Add(log);
-                await _dbContext.SaveChangesAsync();
 
                 Console.WriteLine($"Nye adresser fundet: {newAddrFound}");
             }
