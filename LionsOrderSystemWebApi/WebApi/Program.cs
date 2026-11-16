@@ -6,38 +6,42 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+builder.Services.AddCors();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
-builder.Services.AddCors();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(Globals.dbConnectionString));
+    options.UseMySQL(Globals.dbConnectionString));
 
 var app = builder.Build();
 
 Log.Write("WebApi starter");
 
-app.UsePathBase("/api");
-app.MapHealthChecks("/health");
+app.UsePathBase(new PathString("/api"));
+app.MapHealthChecks(new PathString("/health"));
+
+app.UseHttpsRedirection();
+app.UseRouting();
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
-app.UseHttpsRedirection();
-app.UseRouting();
-
-var origins = new string[] {
-    "http://127.0.0.1:5500",
-    "https://lcvinderup.dk"
-};
-
-app.UseCors(options => options.WithOrigins(origins)
+    app.UseCors(options => options
+    .AllowAnyOrigin()
     .AllowAnyHeader()
     .AllowAnyMethod());
+}
+
+if (app.Environment.IsProduction())
+{
+    app.UseCors(options => options
+    .WithOrigins("https://lcvinderup.dk")
+    .AllowAnyHeader()
+    .AllowAnyMethod());
+}
 
 app.UseAuthorization();
 app.MapControllers();

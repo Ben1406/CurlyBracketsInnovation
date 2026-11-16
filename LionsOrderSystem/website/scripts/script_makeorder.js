@@ -6,6 +6,16 @@ function pageLoaded() {
     fillAddresses();
 }
 
+function getFetchPrefix()
+{
+    var prefix = "";
+    if (window.location.hostname == "127.0.0.1")
+    {
+        prefix = "https://localhost:44373";
+    }
+    return prefix;
+}
+
 function showBasket() {
     window.location.href = "basket.html"
 }
@@ -54,7 +64,7 @@ async function fillAddresses() {
     const addrOptions = document.querySelector(".addr-options");
     const addressInput = document.getElementById("addressInput");
 
-    await fetch('/api/addresses/GetAllAddresses')
+    await fetch(getFetchPrefix() + '/api/addresses/GetAllAddresses')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         const addrOption = document.createElement("div");
@@ -188,7 +198,7 @@ async function createOrderInDb(fullname, address, phone, mail, paymentmethod, de
     var orderlineid = 0;
     var grandtotal = 0;
 
-    await fetch('/api/Orders/GetLastOrderId')
+    await fetch(getFetchPrefix() + '/api/Orders/GetLastOrderId')
         .then(res => { return res.json(); })
         .then(lastorder => {
             orderid = lastorder.ordreid;
@@ -234,7 +244,7 @@ async function createOrderInDb(fullname, address, phone, mail, paymentmethod, de
             totalpris: itemTotal
         };
 
-        const response = await fetch('/api/Orders/SetNewOrderLine', {
+        const response = await fetch(getFetchPrefix() + '/api/Orders/SetNewOrderLine', {
             method: "POST",
             body: JSON.stringify(newOrderLine),
             headers: {
@@ -261,7 +271,7 @@ async function createOrderInDb(fullname, address, phone, mail, paymentmethod, de
         note: note
     };
 
-    const response = await fetch('/api/Orders/SetNewOrder', {
+    const response = await fetch(getFetchPrefix() + '/api/Orders/SetNewOrder', {
         method: "POST",
         body: JSON.stringify(newOrder),
         headers: {

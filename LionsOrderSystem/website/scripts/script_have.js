@@ -8,8 +8,19 @@ function pageLoaded() {
     displayBasketItemCount();
 }
 
+function getFetchPrefix()
+{
+    var prefix = "";
+    if (window.location.hostname == "127.0.0.1")
+    {
+        prefix = "https://localhost:44373";
+    }
+    return prefix;
+}
+
 async function fetchProductsAll() {
-    await fetch('/api/Products/GetAllProducts/Have')
+    
+    await fetch(getFetchPrefix() + '/api/Products/GetAllProducts/Have')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         if (data.aktiv == true) {
@@ -92,7 +103,7 @@ async function addToBasket(button) {
     if (existingBasketIndex !== -1 && basket[existingBasketIndex].antal > 0) {
         basket[existingBasketIndex].antal += quantity;
     } else {
-        await fetch('/api/Products/GetProductById/' + selectedProductId)
+        await fetch(getFetchPrefix() + '/api/Products/GetProductById/' + selectedProductId)
         .then(res => { return res.json(); })
         .then(productItem => {
             basket.push({

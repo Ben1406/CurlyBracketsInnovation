@@ -1,9 +1,9 @@
 @WebApi_HostAddress = https://localhost:44373
 
-GET {{WebApi_HostAddress}}/api/Products/GetAll/A
+GET {{WebApi_HostAddress}}/api/Products/GetAllProducts/have
 Accept: application/json
 
 ###
 
-GET {{WebApi_HostAddress}}/api/Products/GetById/26101
+GET {{WebApi_HostAddress}}/api/Products/GetProductById/101-26
 Accept: application/json
