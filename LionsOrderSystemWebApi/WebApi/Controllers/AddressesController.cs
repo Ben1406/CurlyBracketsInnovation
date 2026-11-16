@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WebApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class AddressesController : ControllerBase
 {
     private readonly AppDbContext _dbContext;

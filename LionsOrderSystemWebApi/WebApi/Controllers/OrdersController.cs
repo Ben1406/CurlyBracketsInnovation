@@ -5,7 +5,7 @@ using WebApi.Data;
 namespace WebApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class OrdersController : ControllerBase
 {
     private readonly AppDbContext _dbContext;

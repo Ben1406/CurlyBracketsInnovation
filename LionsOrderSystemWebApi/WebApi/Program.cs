@@ -4,19 +4,18 @@ using webApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMvc();
 builder.Services.AddHealthChecks();
+builder.Services.AddCors();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(Globals.dbConnectionString));
 
 var app = builder.Build();
 
-Log.Write("WebApi startet");
+Log.Write("WebApi starter");
 
 app.UsePathBase("/api");
 app.MapHealthChecks("/health");

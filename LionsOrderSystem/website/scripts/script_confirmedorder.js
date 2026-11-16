@@ -21,7 +21,7 @@ function displayOrder() {
 
     var grandtotal = 0;
 
-    for (let index = 0; index < basket.length; index++) {
+    for (var index = 0; index < basket.length; index++) {
         const item = basket[index];
         var itemTotal = 0;
         
@@ -48,9 +48,12 @@ function displayOrder() {
     const grandtotalElement = document.getElementById("grandtotal");
     const grandtotalFormat = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK" }).format(grandtotal);
     grandtotalElement.textContent = grandtotalFormat;
+
+    clearSessionStorage();
 }
 
 function clearSessionStorage()
 {
-
+    sessionStorage.removeItem("basket");
+    displayBasketItemCount();
 }

@@ -9,7 +9,6 @@ function pageLoaded() {
 }
 
 async function fetchProductsAll() {
-    // https://localhost:44373
     await fetch('/api/Products/GetAllProducts/GrillSennep')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
