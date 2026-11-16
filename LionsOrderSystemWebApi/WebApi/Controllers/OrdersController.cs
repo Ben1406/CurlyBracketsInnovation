@@ -85,14 +85,6 @@ public class OrdersController : ControllerBase
         }
         catch (Exception ex)
         {
-            var log = new Logs()
-            {
-                tidspunkt = DateTime.Now,
-                besked = $"Fejlede under GetAllOrderLines: {ex}"
-            };
-            _dbContext.Log.Add(log);
-            await _dbContext.SaveChangesAsync();
-
             Log.Write($"Fejlede under GetAllOrderLines: {ex}");
             return NotFound("Fejlede under GetAllOrderLines");
         }

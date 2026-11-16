@@ -285,5 +285,15 @@ async function createOrderInDb(fullname, address, phone, mail, paymentmethod, de
         return false;
     }
 
+    sessionStorage.removeItem("order");
+    
+    let order = JSON.parse(sessionStorage.getItem("order")) || [];
+    order.push({
+        ordreId: orderid,
+        leveringsmetode: deliverymethod,
+        betalingsmetode: paymentmethod
+    });
+    sessionStorage.setItem("order", JSON.stringify(order));
+
     console.log("Order completed");
 }

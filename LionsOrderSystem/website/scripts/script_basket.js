@@ -31,7 +31,7 @@ function displayBasketItems() {
         return;
     }
 
-    for (let index = 0; index < basket.length; index++) {
+    for (var index = 0; index < basket.length; index++) {
         const item = basket[index];
         var itemTotal = 0;
         
