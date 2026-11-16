@@ -37,7 +37,6 @@ public static class PublicApiClient
         catch (HttpRequestException ex)
         {
             Log.Write($"Fejlede under SyncAllAddressFor7830: {ex}");
-            Console.WriteLine($"HTTP eller Autorisationsfejl: {ex.Message}");
             return null;
         }
     }
@@ -85,19 +84,17 @@ public static class PublicApiClient
                 }
             }
 
-            Log.Write($"Fandt '{newAddrFound}' nye adresser");
-
             if (newAddrFound > 0)
             {
                 _dbContext.SaveChanges();
-
-                Console.WriteLine($"Nye adresser fundet: {newAddrFound}");
             }
 
+            Log.Write($"Fandt '{newAddrFound}' nye adresser");
             return true;
         }
         catch (Exception ex)
         {
+            Log.Write($"Fejlede under StoredInDatabase: {ex}");
             return false;
         }
     }

@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors();
 builder.Services.AddMvc();
 builder.Services.AddHealthChecks();
 
@@ -17,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
-Log.Write("WebApi starter");
+Log.Write("WebApi startet");
 
 app.UsePathBase("/api");
 app.MapHealthChecks("/health");
@@ -29,20 +28,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+app.UseRouting();
+
 var origins = new string[] {
     "http://127.0.0.1:5500",
-    "http://lcvinderup.dk",
-    "https://lcvinderup.dk",
-    "http://nt28.unoeuro.com",
-    "https://nt28.unoeuro.com"
+    "https://lcvinderup.dk"
 };
 
 app.UseCors(options => options.WithOrigins(origins)
     .AllowAnyHeader()
     .AllowAnyMethod());
 
-app.UseHttpsRedirection();
-app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 

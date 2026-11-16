@@ -9,7 +9,7 @@ function pageLoaded() {
 }
 
 async function fetchProductsAll() {
-    await fetch('https://localhost:44373/api/Products/GetAllProducts/Have')
+    await fetch('/api/Products/GetAllProducts/Have')
     .then(res => { return res.json(); })
     .then(data => data.forEach(data => {
         if (data.aktiv == true) {
@@ -92,7 +92,7 @@ async function addToBasket(button) {
     if (existingBasketIndex !== -1 && basket[existingBasketIndex].antal > 0) {
         basket[existingBasketIndex].antal += quantity;
     } else {
-        await fetch('https://lcvinderup.dk/api/Products/GetProductById/' + selectedProductId)
+        await fetch('/api/Products/GetProductById/' + selectedProductId)
         .then(res => { return res.json(); })
         .then(productItem => {
             basket.push({
