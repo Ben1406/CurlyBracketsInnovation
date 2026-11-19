@@ -83,23 +83,11 @@ body {
     line-height: 2em;
 }
 
-.title3 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    text-align: center;
-    font-size: 1.8em;
-    font-weight: bold;
-    line-height: 2em;
+.title2 :first-child {
+    text-decoration: underline;
 }
 
-.title3 button {
-    padding: 12px 30px;
-}
-
-.title4 {
+.title3, .title4 {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -111,7 +99,27 @@ body {
     line-height: 2em;
 }
 
+.title3 :first-child, .title4 :first-child {
+    text-decoration: underline;
+}
+
 .title5 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 2em;
+}
+
+.title5 button {
+    padding: 12px 30px;
+}
+
+.title6 {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -169,18 +177,18 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: top;
-    margin-top: 20px;
+    margin-top: 12px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: auto;
+    margin-bottom: 8px;
 }
 
 .card-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 800px;
-    margin-bottom: 18px;
+    width: 700px;
+    margin-bottom: 12px;
     text-align: left;
     font-size: 1.2em;
 }
