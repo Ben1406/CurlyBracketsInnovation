@@ -113,7 +113,7 @@ async function displayOrderItems() {
 
     var paymentText = "";
     if (paymentMethod == "mobilepay") paymentText = "Indbetal " + grandtotalFormat + " med MobilePay på nr. 88345 og skriv ' " + orderId + " ' i besked-feltet.";
-    if (paymentMethod == "bank") paymentText = "Overfør " + grandtotalFormat + " til reg.nr. 9203 kontonr. 12345678 og skriv ' " + orderId + " ' i tekst-til-modtager-feltet." ;
+    if (paymentMethod == "bank") paymentText = "Overfør " + grandtotalFormat + " til reg.nr. 9070 kontonr. 2021032452 og skriv ' " + orderId + " ' i tekst-til-modtager-feltet." ;
     paymentElement.textContent = paymentText;
 
     var deliveryText = "";
