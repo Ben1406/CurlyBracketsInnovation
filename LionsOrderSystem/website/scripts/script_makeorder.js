@@ -156,17 +156,11 @@ async function confirmOrder() {
         return;
     }
 
-    if (mailValue.length > 0)
+    const validateEmail = mailValue.toLowerCase().match(/\S+@\S+\.\S+/)
+    if (mailValue != validateEmail)
     {
-        const validateEmail = mailValue.toLowerCase().match
-        (
-            /\S+@\S+\.\S+/
-        )
-        if (mailValue != validateEmail)
-        {
-            alert("Ugyldig mailadresse");
-            return;
-        }
+        alert("Ugyldig mailadresse");
+        return;
     }
 
     if (paymentmethodValue.length <= 0)

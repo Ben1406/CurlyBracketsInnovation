@@ -83,6 +83,10 @@ body {
     line-height: 2em;
 }
 
+.title2 a {
+    text-decoration: underline;
+}
+
 .title3 {
     display: block;
     margin-left: auto;

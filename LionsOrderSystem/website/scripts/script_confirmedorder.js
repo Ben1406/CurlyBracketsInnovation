@@ -113,13 +113,12 @@ async function displayOrderItems() {
 
     var paymentText = "";
     if (paymentMethod == "mobilepay") paymentText = "Indbetal " + grandtotalFormat + " med MobilePay på nr. 88345 og skriv ' " + orderId + " ' i besked-feltet.";
-    if (paymentMethod == "bank") paymentText = "Overfør " + grandtotalFormat + " til reg.nr. 1234 kontonr. 12345678 og skriv ' " + orderId + " ' i tekst-til-modtager-feltet." ;
-    if (paymentMethod == "kontant") paymentText = "Hav " + grandtotalFormat + " klar i kontanter, når vi levere bestillingen.";
+    if (paymentMethod == "bank") paymentText = "Overfør " + grandtotalFormat + " til reg.nr. 9203 kontonr. 12345678 og skriv ' " + orderId + " ' i tekst-til-modtager-feltet." ;
     paymentElement.textContent = paymentText;
 
     var deliveryText = "";
     if (deliveryMethod == "henter-selv") deliveryText = "Du kan hente din bestilling hos Lions Club Vinderup.";
-    else deliveryText = "Vi kommer snart med din bestilling.";
+    else deliveryText = "Vi levere periodevis - hvilket typisk betyder at du får din bestilling indenfor 14 dage.";
     deliveryElement.textContent = deliveryText;
 
     clearSessionStorage();
