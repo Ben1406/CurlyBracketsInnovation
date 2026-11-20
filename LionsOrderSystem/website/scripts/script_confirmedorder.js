@@ -1,4 +1,4 @@
-let body = document.querySelector('body')
+let body = document.querySelector('body');
 
 function pageLoaded() {
     displayBasketItemCount();
@@ -122,10 +122,16 @@ async function displayOrderItems() {
     deliveryElement.textContent = deliveryText;
 
     clearSessionStorage();
+    sendMail();
 }
 
 function clearSessionStorage()
 {
     sessionStorage.removeItem("basket");
     displayBasketItemCount();
+}
+
+function sendMail()
+{
+    console.log("Mail sent");
 }
