@@ -250,7 +250,7 @@ async function createOrderInDb(fullname, address, phone, mail, paymentmethod, de
         {
             console.log("Error: " + response.statusText);
             return false;
-        }
+        };
     }
 
     const newOrder = {

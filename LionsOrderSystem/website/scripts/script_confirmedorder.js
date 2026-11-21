@@ -31,7 +31,8 @@ async function displayOrderItems() {
     const orderItemsContainer = document.querySelector(".order-items");
     const yourOrderNumberElement = document.querySelector(".your-order-number");
     const paymentElement = document.querySelector(".payment");
-    const deliveryElement = document.querySelector(".delivery");
+    const delivery1Element = document.querySelector(".delivery1");
+    const delivery2Element = document.querySelector(".delivery2");
     const orderStorage = JSON.parse(sessionStorage.getItem("order")) || [];
 
     orderItemsContainer.innerHTML = "";
@@ -116,10 +117,18 @@ async function displayOrderItems() {
     if (paymentMethod == "bank") paymentText = "Overfør " + grandtotalFormat + " til reg.nr. 9070 kontonr. 2021032452 og skriv ' " + orderId + " ' i tekst-til-modtager-feltet." ;
     paymentElement.textContent = paymentText;
 
-    var deliveryText = "";
-    if (deliveryMethod == "henter-selv") deliveryText = "Du kan hente din bestilling hos Lions Club Vinderup.";
-    else deliveryText = "Vi levere periodevis - hvilket typisk betyder at du får din bestilling indenfor 14 dage.";
-    deliveryElement.textContent = deliveryText;
+    var deliveryText1 = "";
+    var deliveryText2 = "";
+    if (deliveryMethod == "henter-selv") {
+        deliveryText1 = "Du kan hente din bestilling hos Lions Club Vinderup.";
+        deliveryText2 = "Vi kontakter dig og aftaler tid og sted.";
+    }
+    else {
+        deliveryText1 = "Vi levere periodevis";
+        deliveryText2 = "hvilket typisk betyder at du får din bestilling indenfor 14 dage.";
+    }
+    delivery1Element.textContent = deliveryText1;
+    delivery2Element.textContent = deliveryText2;
 
     clearSessionStorage();
     sendMail();
@@ -131,7 +140,26 @@ function clearSessionStorage()
     displayBasketItemCount();
 }
 
-function sendMail()
+async function sendMail()
 {
-    console.log("Mail sent");
+    const orderStorage = JSON.parse(sessionStorage.getItem("order")) || [];
+    const orderId = orderStorage[0].ordreId;
+
+    const sendMail = {
+        ordreid: orderId
+    };
+
+    const response = await fetch(getFetchPrefix() + '/api/Mail/SendOrderMail', {
+        method: "POST",
+        body: JSON.stringify(sendMail),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!response.ok)
+    {
+        console.log("Error: " + response.statusText);
+        return false;
+    };
 }

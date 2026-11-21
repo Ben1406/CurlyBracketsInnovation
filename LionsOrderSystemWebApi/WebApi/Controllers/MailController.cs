@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Primitives;
-using System.Runtime.InteropServices;
 using System.Text;
 using WebApi.Data;
 
@@ -19,15 +17,15 @@ public class MailController : ControllerBase
     }
 
     [HttpPost("SendOrderMail")]
-    public async Task<ActionResult<bool>> SendOrderMail(int ordreid)
+    public async Task<ActionResult<bool>> SendOrderMail(SendMailRequest sendMail)
     {
         try
         {
-            var ordre = _dbContext.Ordrer.FirstOrDefault(o => o.ordreid == ordreid);
-            var ordreLinjer = _dbContext.OrdreLinjer.Where(o => o.ordreid == ordreid).OrderBy(o => o.ordrelinjeid).ToList();
+            var ordre = _dbContext.Ordrer.FirstOrDefault(o => o.ordreid == sendMail.ordreid);
+            var ordreLinjer = _dbContext.OrdreLinjer.Where(o => o.ordreid == sendMail.ordreid).OrderBy(o => o.ordrelinjeid).ToList();
             if (ordre is null || ordreLinjer is null)
             {
-                return NotFound($"Fandt ingen ordre/ordrelinjer på ordrenr. {ordreid}");
+                return NotFound($"Fandt ingen ordre/ordrelinjer på ordrenr. {sendMail.ordreid}");
             }
 
             string styleBorder = $@"border-style: outset; border-width: 1px; border-color: black";
@@ -123,7 +121,7 @@ public class MailController : ControllerBase
             var message = new MimeKit.MimeMessage();
             message.From.Add(new MimeKit.MailboxAddress("Lions Club Vinderup", "mail@lcvinderup.dk"));
             message.To.Add(new MimeKit.MailboxAddress($"{ordre?.navn}", $"{ordre?.mail}"));
-            message.Subject = $"Bestilling - Ordrenr. {ordreid}";
+            message.Subject = $"Bestilling - Ordrenr. {sendMail.ordreid}";
             message.Body = new MimeKit.BodyBuilder
             {
                 HtmlBody = bodyText.ToString()
@@ -146,4 +144,9 @@ public class MailController : ControllerBase
             return NotFound("Fejlede under SendOrderMail");
         }
     }
+}
+
+public class SendMailRequest
+{
+    public required int ordreid { get; set; }
 }
