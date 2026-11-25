@@ -1,0 +1,74 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lions Club Vinderup</title>
+    <link rel="stylesheet" href="website\styles\style_confirmedorder.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"></script>
+    <script type="text/javascript" src="website\scripts\script_confirmedorder.js" defer></script>
+</head>
+<body onload="pageLoaded()">
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Forside</a></li>
+            <li><a href="have.html">Have</a></li>
+            <li><a href="julesennep.html">Jule Sennep</a></li>
+            <li><a href="grillsennep.html">Grill Sennep</a></li>
+            <li><a href="about.html">Om Lions</a></li>
+            <li>    
+                <button class="basket-button" onclick="showBasket()">
+                    <img class="basket-logo" src="website\images\basket.png" alt="Indkøbskurv">
+                    <span id="basket-item-count">0</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <section id="pdf" class="pdf">
+        <div class="title1">
+            <a href="index.html">
+                <img class="lions-logo" src="website\images\lions_logo.png" alt="Lions Club Vinderup Logo">
+            </a>
+            <p>LIONS CLUB VINDERUP</p>
+        </div>
+
+        <div class="title2">
+            <p>TAK FOR DIN BESTILLING</p>
+            <p>Den er nu sendt til Lions Club Vinderup</p>
+            <p class="your-order-number">Dit ordrenummer: </p>
+        </div>
+
+        <div class="title3">
+            <p>BETALING OG LEVERING</p>
+            <p class="payment"></p>
+            <p class="delivery1"></p>
+            <p class="delivery2"></p>
+        </div>
+
+        <div class="order-container">
+            <div class="order-header">
+                <span>Produkt</span><!-- Basket items will be dynamically added here -->
+                <span>Antal</span><!-- Basket items will be dynamically added here -->
+                <span>Total</span><!-- Basket items will be dynamically added here -->
+            </div>
+
+            <div class="order-items">
+            </div>
+
+            <div class="order-total">
+                <p>Samlet pris <span id="grandtotal">0,00 kr.</span></p>
+            </div>
+        </div>
+
+        <div class="title4">
+            <p>Lions Club Vinderup</p>
+            <p>Al overskud går ubeskåret til velgørenhed</p>
+            <div class="mail-line">
+                <p>Kontakt os på mail:</p>
+                <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#105;&#108;&#64;&#108;&#99;&#118;&#105;&#110;&#100;&#101;&#114;&#117;&#112;&#46;&#100;&#107;">&#77;&#65;&#73;&#76;&#64;&#76;&#67;&#86;&#73;&#78;&#68;&#69;&#82;&#85;&#80;&#46;&#68;&#75;</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

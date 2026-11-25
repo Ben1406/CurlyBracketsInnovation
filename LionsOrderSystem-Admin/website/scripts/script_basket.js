@@ -1,0 +1,134 @@
+let body = document.querySelector('body')
+
+function pageLoaded() {
+    displayBasketItemCount();
+    displayBasketItems();
+}
+
+function showBasket() {
+    window.location.href = "basket.html"
+}
+
+function displayBasketItemCount() {
+    const basketItemCount = document.getElementById("basket-item-count");
+    const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+    const basketTotal = basket.reduce((total, item) => total + item.antal, 0);
+    basketItemCount.textContent = basketTotal;
+}
+
+function displayBasketItems() {
+    const grandtotalElement = document.getElementById("grandtotal");
+    const basketItemsContainer = document.querySelector(".basket-items");
+    const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+
+    basketItemsContainer.innerHTML = "";
+
+    var grandtotal = 0;
+
+    if (basket.length === 0) {
+        const grandtotalFormat = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK" }).format(grandtotal);
+        grandtotalElement.textContent = grandtotalFormat;
+        return;
+    }
+
+    for (var index = 0; index < basket.length; index++) {
+        const item = basket[index];
+        var itemTotal = 0;
+        
+        const basketDescription = item.beskrivelse;
+        const basketDescription2 = item.beskrivelse2;
+        const basketImageName = item.billedenavn;
+        const basketQuantity = parseInt(item.antal);
+        const normalPrice = parseInt(item.normalprisperstyk);
+        const offerPrice = parseInt(item.tilbudsprisperstyk);
+        const offerMinimumPieces = parseInt(item.tilbudminstyk);
+        
+        if (offerPrice <= 0 || offerMinimumPieces <= 0)
+        {
+            itemTotal = basketQuantity * normalPrice;
+        } else if (basketQuantity < offerMinimumPieces) {
+            itemTotal = basketQuantity * normalPrice;
+        } else {
+            itemTotal = basketQuantity * offerPrice;
+        }
+        
+        grandtotal += itemTotal;
+
+        const itemtotalFormat = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK" }).format(itemTotal);
+
+        const basketItem = document.createElement("div");
+        basketItem.classList.add("basket-item");
+        
+        if (offerPrice > 0 && offerMinimumPieces > 0)
+        {
+            basketItem.innerHTML = `
+                <div class="basket-product">
+                    <img src="website/images/${basketImageName}">
+                    <div class="product-text">
+                        <p>${basketDescription}</p>
+                        <p>${basketDescription2}</p>
+                        <p>Pris kr. ${normalPrice} pr. styk - ${offerMinimumPieces} styk for kr. ${offerMinimumPieces * offerPrice} - derudover ${offerPrice} pr. styk</p>
+                    </div>
+                </div>
+                <div class="basket-quantity"><input type="number" id="basket-quantity-${index}" value="${basketQuantity}" min="1" data-index="${index}"></div>
+                <span class="basket-totalprice">${itemtotalFormat}</span>
+                <button class="remove-button" id="remove-button-${index}" data-index="${index}"><i class="ri-close-line"></i></button>
+            `;
+        } else {
+            basketItem.innerHTML = `
+                <div class="basket-product">
+                    <img src="website/images/${basketImageName}">
+                    <div class="product-text">
+                        <p>${basketDescription}</p>
+                        <p>${basketDescription2}</p>
+                        <p>Pris kr. ${normalPrice} pr. styk</p>
+                    </div>
+                </div>
+                <div class="basket-quantity"><input type="number" id="basket-quantity-${index}" value="${basketQuantity}" min="1" data-index="${index}"></div>
+                <span class="basket-totalprice">${itemtotalFormat}</span>
+                <button class="remove-button" id="remove-button-${index}" data-index="${index}"><i class="ri-close-line"></i></button>
+            `;
+        }
+
+        basketItemsContainer.appendChild(basketItem);
+        removeBasketItem(index);
+        updateBasketItem(index);
+    };
+
+    const grandtotalFormat = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK" }).format(grandtotal);
+    grandtotalElement.textContent = grandtotalFormat;
+}
+
+function removeBasketItem(index) {
+    var button = document.getElementById("remove-button-" + index);
+    button.addEventListener("click", function () {
+        const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+        console.log("Removing item at index:", index);
+        basket.splice(index, 1);
+        sessionStorage.setItem("basket", JSON.stringify(basket));
+        displayBasketItemCount();
+        displayBasketItems();
+    });
+}
+
+function updateBasketItem(index) {
+    var input = document.getElementById("basket-quantity-" + index);
+    input.addEventListener("change", function () {
+        const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+        console.log("Updating item at index:", index);
+        basket[index].antal = parseInt(this.value);
+        sessionStorage.setItem("basket", JSON.stringify(basket));
+        displayBasketItemCount();
+        displayBasketItems();
+    });
+}
+
+function makeOrder() {
+    const basket = JSON.parse(sessionStorage.getItem("basket")) || [];
+    if (basket.length === 0) {
+        alert("Der er ikke nogen produkter i din indkøbskurv");
+        return;
+    }
+
+    window.location.href = "makeorder.html"
+}
