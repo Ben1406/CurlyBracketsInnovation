@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using WebApi.Data;
 
@@ -28,95 +29,157 @@ public class MailController : ControllerBase
                 return NotFound($"Fandt ingen ordre/ordrelinjer på ordrenr. {sendMail.ordreid}");
             }
 
-            string styleBorder = $@"border-style: outset; border-width: 1px; border-color: black";
-            string styleNormal = $@"style=""font-size: 16px; text-align: left; line-height: 18px""";
-            string styleClose = $@"style=""font-size: 16px; text-align: left; line-height: 2px""";
-            string stylePriRow = $@"style=""font-size: 16px; text-align: left; font-weight: normal; width: 350px""";
-            string stylePriBorderRow = $@"style=""font-size: 16px; text-align: left; font-weight: normal; width: 350px; {styleBorder}""";
-            string styleSecRow = $@"style=""font-size: 16px; text-align: right; font-weight: normal; width: 150px""";
-            string styleSecBorderRow = $@"style=""font-size: 16px; text-align: right; font-weight: normal; width: 150px; {styleBorder}""";
-
             StringBuilder bodyText = new StringBuilder();
 
+            // HTML Head
             bodyText.AppendLine(@"<!Doctype html>");
-            bodyText.AppendLine(@"<html lang=""en"">");
+            bodyText.AppendLine(@"<html lang=""da"">");
             bodyText.AppendLine(@"<head>");
             bodyText.AppendLine(@"<meta charset=""UTF-8"">");
+            bodyText.AppendLine(@"<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">");
+            bodyText.AppendLine(@"<title>Ordrebekræftelse - Lions Club Vinderup</title>");
             bodyText.AppendLine(@"</head>");
             bodyText.AppendLine(@"<body>");
             bodyText.AppendLine(@"<div>");
 
-            bodyText.AppendLine($"<p {styleNormal}>Kære {ordre?.navn}</p>");
-            bodyText.AppendLine($"<p {styleNormal}>Tak for din bestilling.</p>");
-            bodyText.AppendLine($"<p {styleClose}>Dit køb kommer også til at gøre gavn for andre.</p>");
-            bodyText.AppendLine($"<p {styleClose}>For hos Lions går overskuddet nemlig ubeskåret til velgørende og humanitære formål.</p>");
-            bodyText.AppendLine($"<p {styleClose}>Både lokalt, nationalt og internationalt.</p>");
+            // HTML Body (begin)
+            bodyText.AppendLine(@"<body style=""margin: 0; padding: 0; background-color: #f4f5f7; font-family: Arial, Helvetica, sans-serif; color: #333333; -webkit-font-smoothing: antialiased;"">");
 
-            bodyText.AppendLine($"<p {styleNormal}><u>Betaling</u></p>");
-            if (ordre?.betalingsmetode == "mobilepay") bodyText.AppendLine($"<p {styleClose}>Indbetal <b>kr. {ordre.totalpris}</b> med MobilePay på nr. 88345 og skriv ' {ordre.ordreid} ' i besked-feltet.</p>");
+            bodyText.AppendLine(@"<table role=""presentation"" width=""100%"" cellspacing=""0"" cellpadding=""0"" border=""0"" style=""background-color: #f4f5f7; padding: 30px 15px;"">");
+            bodyText.AppendLine(@"<tr>");
+            bodyText.AppendLine(@"<td align=""center"">");
+
+            // Mail header
+            bodyText.AppendLine(@"<table role=""presentation"" width=""720"" cellspacing=""0"" cellpadding=""0"" border=""0"" style=""max-width: 720px; width: 100%; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06);"">");
+            bodyText.AppendLine(@"<tr>");
+            bodyText.AppendLine(@"<td style=""background-color: #00338d; padding: 28px 32px; text-align: left; border-bottom: 4px solid #ebb700;"">");
+            bodyText.AppendLine(@"<h1 style=""margin: 0; font-size: 22px; color: #ffffff; letter-spacing: 0.5px;"">Lions Club Vinderup</h1>");
+            bodyText.AppendLine($@"<p style=""margin: 6px 0 0 0; font-size: 16px; color: #ebb700; font-weight: bold;"">Ordrebekræftelse #{ordre.ordreid}</p>");
+            bodyText.AppendLine(@"</td>");
+            bodyText.AppendLine(@"</tr>");
+
+            bodyText.AppendLine(@"<tr>");
+            bodyText.AppendLine(@"<td style=""padding: 32px 32px 16px 32px;"">");
+            bodyText.AppendLine($@"<p style=""margin: 0 0 16px 0; font-size: 16px; line-height: 1.5;"">Kære <strong>{ordre.navn}</strong>,</p>");
+            bodyText.AppendLine(@"<p style=""margin: 0 0 16px 0; font-size: 16px; line-height: 1.5;"">Tak for din bestilling.</p>");
+            bodyText.AppendLine(@"<p style=""margin: 0 0 16px 0; font-size: 16px; line-height: 1.5;"">");
+            bodyText.AppendLine(@"Dit køb kommer også til at gøre gavn for andre. Hos Lions går overskuddet nemlig ubeskåret til velgørende og humanitære formål &ndash; både lokalt, nationalt og internationalt.");
+            bodyText.AppendLine(@"</p>");
+            bodyText.AppendLine(@"</td>");
+            bodyText.AppendLine(@"</tr>");
+
+            // Mail payment method
+            bodyText.AppendLine(@"<tr>");
+            bodyText.AppendLine(@"<td style=""padding: 12px 32px;"">");
+            bodyText.AppendLine(@"<table role=""presentation"" width=""100%"" cellspacing=""0"" cellpadding=""0"" border=""0"" style=""background-color: #f0f4fa; border-left: 4px solid #00338d; border-radius: 4px;"">");
+            bodyText.AppendLine(@"<tr>");
+            bodyText.AppendLine(@"<td style=""padding: 18px 20px;"">");
+            bodyText.AppendLine(@"<h2 style=""margin: 0 0 8px 0; font-size: 16px; color: #00338d;"">Betaling</h2>");
+            bodyText.AppendLine(@"<p style=""margin: 0; font-size: 16px; line-height: 1.5;"">");
+            if (ordre?.betalingsmetode == "mobilepay")
+            {
+                bodyText.AppendLine($@"Indbetal <strong>kr. {ordre.totalpris:#0.00}</strong> med MobilePay på nr. <strong>88345</strong> og skriv <strong>{ordre.ordreid}</strong> i beskedfeltet.");
+            }
             if (ordre?.betalingsmetode == "bank")
             {
-                bodyText.AppendLine($"<p {styleClose}>Overfør <b>kr. {ordre.totalpris:#0.00}</b> til bankkonto:</span>");
-                bodyText.AppendLine($"<p {styleClose}>Reg.nr. 9070</span>");
-                bodyText.AppendLine($"<p {styleClose}>Kontonr. 2021032452</span>");
-                bodyText.AppendLine($"<p {styleClose}>Skriv ' {ordre.ordreid} ' i tekst-til-modtager-feltet.</span>");
-            };
+                bodyText.AppendLine($@"Overfør <strong>kr. {ordre.totalpris:#0.00}</strong> til bankkonto: <br/ >");
+                bodyText.AppendLine($@"Reg.nr. <strong>9070</strong> <br/ >");
+                bodyText.AppendLine($@"Kontonr. <strong>2021032452</strong> <br/ >");
+                bodyText.AppendLine($@"Skriv <strong>{ordre.ordreid}</strong> i tekst-til-modtager feltet.");
+            }
+            bodyText.AppendLine(@"</p>");
+            bodyText.AppendLine(@"</td>");
+            bodyText.AppendLine(@"</tr>");
+            bodyText.AppendLine(@"</table>");
+            bodyText.AppendLine(@"</td>");
+            bodyText.AppendLine(@"</tr>");
 
-            bodyText.AppendLine($"<p {styleNormal}><u>Levering</u></p>");
+            // Mail delivery method
+            bodyText.AppendLine(@"<tr>");
+            bodyText.AppendLine(@"<td style=""padding: 16px 32px;"">");
+            bodyText.AppendLine(@"<h2 style=""margin: 0 0 8px 0; font-size: 16px; color: #00338d;"">Levering &amp; Afhentning</h2>");
+            bodyText.AppendLine(@"<p style=""margin: 0; font-size: 16px; line-height: 1.5;"">");
             if (ordre?.leveringsmetode == "henter-selv")
             {
-                bodyText.AppendLine($"<p {styleClose}>Du kan hente din bestilling hos Lions Club Vinderup.</p>");
-                bodyText.AppendLine($"<p {styleClose}>Vi kontakter dig og aftaler tid og sted.</p>");
+                bodyText.AppendLine(@"Du kan hente din bestilling hos Lions Club Vinderup. <br/ >");
+                bodyText.AppendLine(@"Vi kontakter dig og aftaler nærmere om tid og sted.");
             }
             else
             {
-                bodyText.AppendLine($"<p {styleClose}>Vi levere periodevis, hvilket typisk betyder at du får din bestilling indenfor 14 dage.<p>");
+                bodyText.AppendLine(@"Vi levere periodevis, hvilket typisk betyder at du får din bestilling indenfor 14 dage.");
             }
+            bodyText.AppendLine(@"</p>");
+            bodyText.AppendLine(@"</td>");
+            bodyText.AppendLine(@"</tr>");
 
-            bodyText.AppendLine($"<p {styleNormal}><u>Bestilling</u></p>");
+            // Mail your order (begin)
+            bodyText.AppendLine(@"<tr>");
+            bodyText.AppendLine(@"<td style=""padding: 16px 32px 32px 32px;"">");
+            bodyText.AppendLine(@"<h2 style=""margin: 0 0 12px 0; font-size: 16px; color: #00338d;"">Din bestilling</h2>");
+            bodyText.AppendLine(@"<table role=""presentation"" width=""720"" cellspacing=""0"" cellpadding=""0"" border=""0"" style=""width: 720px; table-layout: fixed; border-collapse: collapse; font-size: 16px;"">");
+            bodyText.AppendLine(@"<colgroup>");
+            bodyText.AppendLine(@"<col style = ""width: 400px;"">");
+            bodyText.AppendLine(@"<col style = ""width: 160px;"">");
+            bodyText.AppendLine(@"<col style = ""width: 160px;"">");
+            bodyText.AppendLine(@"</colgroup>");
 
-            bodyText.AppendLine($@"<table style=""width: 600px; {styleBorder}"">");
-            bodyText.AppendLine("<thead>");
-            bodyText.AppendLine("<tr>");
-            bodyText.AppendLine($@"<th scope""col"" {stylePriBorderRow}>Produkt</th>");
-            bodyText.AppendLine($@"<th scope""col"" {styleSecBorderRow}>Styk</th>");
-            bodyText.AppendLine($@"<th scope""col"" {styleSecBorderRow}>Beløb</th>");
-            bodyText.AppendLine("</tr>");
-            bodyText.AppendLine("</thead>");
-            bodyText.AppendLine("<tbody>");
+            // Mail order table header
+            bodyText.AppendLine(@"<thead>");
+            bodyText.AppendLine(@"<tr style=""background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;"">");
+            bodyText.AppendLine(@"<th scope=""col"" width=""400"" style=""width: 400px; box-sizing: border-box; padding: 8px 6px; text-align: left; color: #333333; font-weight: bold;"">Produkt</th>");
+            bodyText.AppendLine(@"<th scope=""col"" width=""160"" style=""width: 160px; box-sizing: border-box; padding: 8px 6px; text-align: right; color: #333333; font-weight: bold;"">Styk</th>");
+            bodyText.AppendLine(@"<th scope=""col"" width=""160"" style=""width: 160px; box-sizing: border-box; padding: 8px 6px; text-align: right; color: #333333; font-weight: bold;"">Beløb</th>");
+            bodyText.AppendLine(@"</tr>");
+            bodyText.AppendLine(@"</thead>");
+
+            // Mail order table body
+            bodyText.AppendLine(@"<tbody>");
 
             var totalPris = 0;
             var totalAntal = 0;
-
             foreach (var ol in ordreLinjer)
             {
-                bodyText.AppendLine("<tr>");
-                bodyText.AppendLine($@"<th scope""row"" {stylePriRow}>{ol.produktbeskrivelse}</th>");
-                bodyText.AppendLine($@"<td scope""row"" {styleSecRow}>{ol.antal}</th>");
-                bodyText.AppendLine($@"<td scope""row"" {styleSecRow}>{ol.totalpris:#0.00} kr.</th>");
-                bodyText.AppendLine("</tr>");
+                bodyText.AppendLine(@"<tr style=""border-bottom: 1px solid #eeeeee;"">");
+                bodyText.AppendLine($@"<td width=""400"" style=""width: 400px; box-sizing: border-box; padding: 8px 6px; text-align: left; color: #333333;"">{ol.produktbeskrivelse}</td>");
+                bodyText.AppendLine($@"<td width=""160"" style=""width: 160px; box-sizing: border-box; padding: 8px 6px; text-align: right; color: #333333;"">{ol.antal}</td>");
+                bodyText.AppendLine($@"<td width=""160"" style=""width: 160px; box-sizing: border-box; padding: 8px 6px; text-align: right; color: #333333;"">{ol.totalpris:#0.00} kr.</td>");
+                bodyText.AppendLine(@"</tr>");
                 totalPris += ol.totalpris;
                 totalAntal += ol.antal;
             }
 
-            bodyText.AppendLine("</tbody>");
-            bodyText.AppendLine("<tfoot>");
-            bodyText.AppendLine("<tr>");
-            bodyText.AppendLine($@"<th scope""row"" {stylePriBorderRow}>Total</th>");
-            bodyText.AppendLine($@"<td scope""row"" {styleSecBorderRow}>{totalAntal}</th>");
-            bodyText.AppendLine($@"<td scope""row"" {styleSecBorderRow}>{totalPris:#0.00} kr.</th>");
-            bodyText.AppendLine("</tr>");
-            bodyText.AppendLine("</tfoot>");
-            bodyText.AppendLine("</table>");
+            bodyText.AppendLine(@"</tbody>");
 
-            bodyText.AppendLine($"<p {styleNormal}>Med venlig hilsen</p>");
-            bodyText.AppendLine($"<p {styleClose}>Lions Club Vinderup</p>");
-            bodyText.AppendLine($"<p {styleClose}>Mail: mail@lcvinderup.dk</p>");
-            bodyText.AppendLine($"<p {styleClose}>Mobil: 49490304</p>");
+            // Mail order table footer
+            bodyText.AppendLine(@"<tfoot>");
+            bodyText.AppendLine(@"<tr style=""background-color: #f8f9fa; border-top: 2px solid #00338d;"">");
+            bodyText.AppendLine(@"<td width=""400"" style=""width: 400px; box-sizing: border-box; padding: 8px 6px; text-align: left; font-weight: bold; color: #00338d;"">Total</td>");
+            bodyText.AppendLine($@"<td width=""160"" style=""width: 160px; box-sizing: border-box; padding: 8px 6px; text-align: right; font-weight: bold; color: #00338d;"">{totalAntal}</td>");
+            bodyText.AppendLine($@"<td width=""160"" style=""width: 160px; box-sizing: border-box; padding: 8px 6px; text-align: right; font-weight: bold; color: #00338d;"">{totalPris:#0.00} kr.</td>");
+            bodyText.AppendLine(@"</tr>");
+            bodyText.AppendLine(@"</tfoot>");
 
-            bodyText.AppendLine("<div>");
-            bodyText.AppendLine("</body>");
-            bodyText.AppendLine("</html>");
+            // Mail your order (end)
+            bodyText.AppendLine(@"</table>");
+            bodyText.AppendLine(@"</td>");
+            bodyText.AppendLine(@"</tr>");
+
+            // Mail kind regards and contacts
+            bodyText.AppendLine(@"<tr>");
+            bodyText.AppendLine(@"<td style=""background -color: #f8f9fa; padding: 24px 32px; border-top: 1px solid #eeeeee; font-size: 16px; line-height: 1.5;"">");
+            bodyText.AppendLine(@"<p style=""margin: 0 0 8px 0;"">Med venlig hilsen,<br><strong>Lions Club Vinderup</strong></p>");
+            bodyText.AppendLine(@"<p style=""margin: 0;"">");
+            bodyText.AppendLine(@"Mail: <a href=""mailto:mail@lcvinderup.dk"" style=""color: #00338d; text-decoration: none;"">mail@lcvinderup.dk</a> &nbsp;|&nbsp;");
+            bodyText.AppendLine(@"Mobil: <a href=""tel:+4549490304"" style=""color: #00338d; text-decoration: none;"">49 49 03 04</a>");
+            bodyText.AppendLine(@"</p>");
+            bodyText.AppendLine(@"</td>");
+            bodyText.AppendLine(@"</tr>");
+
+            // HTML Body (end)
+            bodyText.AppendLine(@"</table>");
+            bodyText.AppendLine(@"</td>");
+            bodyText.AppendLine(@"</tr>");
+            bodyText.AppendLine(@"</table>");
 
             var message = new MimeKit.MimeMessage();
             message.From.Add(new MimeKit.MailboxAddress("Lions Club Vinderup", "mail@lcvinderup.dk"));
@@ -129,7 +192,13 @@ public class MailController : ControllerBase
 
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
-                await client.ConnectAsync("smtp.simply.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                var smtpServer = "websmtp.simply.com";
+
+                #if DEBUG
+                    smtpServer = "smtp.simply.com";
+                #endif
+
+                await client.ConnectAsync(smtpServer, 587, MailKit.Security.SecureSocketOptions.StartTls);
                 await client.AuthenticateAsync("mail@lcvinderup.dk", "LCV7830#!");
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
@@ -148,5 +217,6 @@ public class MailController : ControllerBase
 
 public class SendMailRequest
 {
+    [Key]
     public required int ordreid { get; set; }
 }

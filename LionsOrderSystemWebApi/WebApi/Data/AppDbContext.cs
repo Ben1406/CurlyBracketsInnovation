@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApi.Controllers;
 
 namespace WebApi.Data;
 
@@ -9,6 +10,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Adresser> Adresser { get; set; }
     public DbSet<Ordrer> Ordrer{ get; set; }
     public DbSet<OrdreLinjer> OrdreLinjer { get; set; }
+    public DbSet<SendMailRequest> SendMail { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

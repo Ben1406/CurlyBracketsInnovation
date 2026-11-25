@@ -124,8 +124,8 @@ async function displayOrderItems() {
         deliveryText2 = "Vi kontakter dig og aftaler tid og sted.";
     }
     else {
-        deliveryText1 = "Vi levere periodevis";
-        deliveryText2 = "hvilket typisk betyder at du får din bestilling indenfor 14 dage.";
+        deliveryText1 = "Vi levere periodevis, hvilket typisk betyder";
+        deliveryText2 = "at du får din bestilling indenfor 14 dage.";
     }
     delivery1Element.textContent = deliveryText1;
     delivery2Element.textContent = deliveryText2;
