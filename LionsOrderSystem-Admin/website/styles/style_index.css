@@ -61,6 +61,22 @@ body {
     background-color: var(--hover-clr);
 }
 
+.navbar button {
+    padding: 8px 14px;
+    margin-left: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.navbar button:hover {
+    background: white;
+    color: black;
+}
+
 .title1 {
     display: flex;
     justify-content: center;
@@ -71,88 +87,84 @@ body {
     font-weight: 600;
 }
 
-.title2 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: 400;
-    line-height: 2em;
-}
-
-.title3 {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.0em;
-    font-weight: 400;
-    line-height: 2em;
-}
-
 .lions-logo {
     height: 120px;
     width: 120px;
 }
 
-.product-section {
+.modal-login {
+    position: fixed;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70%;
-    gap: 50px;
+    pointer-events: none;
+    /* opacity: 0; */
 }
 
-.product-card {
-    display: block;
-    text-align: center;
+.modal-login.active {
+    opacity: 1;
+    pointer-events: all;
 }
 
-.product-logo {
-    height: 240px;
-    width: 240px;
-    border-color: var(--text-clr);
-    border-width: 2px;
-    border-style: solid;
+.login-box {
+    width: 320px;
+    padding: 28px;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    color: white;
+    position: relative;
+    transform: scale(0.92) translateY(20px);
+    /* opacity: 0; */
 }
 
-.mail-line {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    text-decoration: none;
+.modal-login.active .login-box {
+    transform: scale(1) translateY(0);
+    opacity: 1;
 }
 
-.basket-button {
-    padding-left: 50px;
-    background: none;
-    border: none;
+.modal-close {
+    position: absolute;
+    right: 12px;
+    top: 8px;
     cursor: pointer;
-    color: var(--text-clr);
-    position: absolute;
+    font-size: 20px;
 }
 
-.basket-button span {
-    display: flex;
-    width: 24px;
-    height: 24px;
-    background-color: red;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.9em;
-    color: var(--text-clr);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    right: -15px;
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.basket-logo {
-    height: 28px;
-    width: 28px;
+.login-box input {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.2);
+    color: blue;
+    outline: none;
+    transition: 0.2s;
+}
+
+.login-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.login-box input::focus {
+    border-color: #ffd54f;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #ffd54f;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
 }
