@@ -15,23 +15,20 @@
             <li><a href="ordrer.html">Ordrer</a></li>
             <li><a href="leveringsplan.html">Leveringsplan</a></li>
         </ul>
-        <button id="openLogin">Login</button>
+        <button id="openLogin" onclick="openLogin()">Login</button>
     </nav>
 
     <div class="title1">
-        <a href="index.html">
-            <img class="lions-logo" src="website\images\lions_logo.png" alt="Lions Club Vinderup Logo">
-        </a>
-        <p>LIONS CLUB VINDERUP</p>
+        <p id="user-name"></p>
     </div>
 
     <div class="modal-login" id="modal-login">
         <div class="login-box">
-            <span class="modal-close" id="closeBtn">&times;</span>
+            <span class="modal-close" id="modal-close" onclick="closeLogin()">&times;</span>
             <h2>Login</h2>
-            <input type="text" placeholder="Initialer">
-            <input type="password" placeholder="Adgangskode">
-            <button type="submit" class="login-button">Login</button>
+            <input id="user" type="text" placeholder="Initialer"></input>
+            <input id="pass" type="password" placeholder="Adgangskode"></input>
+            <button type="submit" class="login-button" onclick="userLogin()">Login</button>
         </div>
     </div>
 </body>

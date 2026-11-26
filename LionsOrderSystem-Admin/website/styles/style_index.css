@@ -24,7 +24,7 @@ a {
 
 body {
     display: grid;
-    grid-template-rows: 60px auto auto 1fr auto;
+    grid-template-rows: 60px auto 1fr auto;
     min-height: 100vh;
     min-height: 100dvh;
     background-color: var(--base-clr);
@@ -81,10 +81,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 3.5em;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 1.4em;
     font-weight: 600;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .lions-logo {
@@ -99,7 +101,8 @@ body {
     justify-content: center;
     align-items: center;
     pointer-events: none;
-    /* opacity: 0; */
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .modal-login.active {
@@ -118,7 +121,7 @@ body {
     color: white;
     position: relative;
     transform: scale(0.92) translateY(20px);
-    /* opacity: 0; */
+    opacity: 0;
 }
 
 .modal-login.active .login-box {
@@ -141,11 +144,11 @@ body {
 
 .login-box input {
     width: 100%;
-    padding: 11px;
+    padding: 11px 11px 11px 11px;
     margin-bottom: 12px;
     border: 1px solid rgba(255, 255, 255, 0.35);
     background: rgba(255, 255, 255, 0.2);
-    color: blue;
+    color: white;
     outline: none;
     transition: 0.2s;
 }
